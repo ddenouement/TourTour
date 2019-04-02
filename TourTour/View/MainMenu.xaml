@@ -1,0 +1,41 @@
+﻿<Page x:Class="TourTour.View.MainMenu"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TourTour.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800"
+      Title="MainMenu">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="Your role:" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+        <Label Name="LabelRole" Grid.Column="1" Content="User" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left" />
+        
+        <Button FontSize="18" Grid.Row="0" Grid.Column="4" Content="Cart" Click="ButtonCart_Click"/>
+        <Button FontSize="18" Grid.Row="0" Grid.Column="5" Content="Log out" Click="ButtonLogOut_Click"/>
+        <Button FontSize="18" Grid.Row="2" Grid.Column="2" Content="Tours" Click="ButtonTours_Click" Grid.ColumnSpan="2"/>
+        <Button FontSize="18" Grid.Row="3" Grid.Column="2" Content="Hotels" Click="ButtonHotels_Click" Grid.ColumnSpan="2"/>
+        <Button FontSize="18" Grid.Row="4" Grid.Column="2" Content="Clients" Click="ButtonClients_Click" Grid.ColumnSpan="2"/>
+        <Button FontSize="18" Grid.Row="5" Grid.Column="2" Content="Zvit" Click="ButtonZvit_Click" Grid.ColumnSpan="2"/>
+        
+    </Grid>
+</Page>
