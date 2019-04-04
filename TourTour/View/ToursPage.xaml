@@ -73,17 +73,18 @@
 
         </Grid>
 
-        <DataGrid x:Name="DataGridTours" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="True" Width="800" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
+        <DataGrid x:Name="DataGridTours" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" Width="800" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding tour_id}" Header="ID" x:Name="ID" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding tour_name}" Header="Name" x:Name="Name" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding tour_kilometers}" Header="km" x:Name="Mileage" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding tour_transfer}" Header="Transfer" x:Name="Transfer" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding tour_avia}" Header="Avia cost" x:Name="AviaCost" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding tour_available}" Header="Available" x:Name="Available" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding tour_descr}" Header="Description" x:Name="Description" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding hotel_country}" Header="Country" x:Name="Country" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding hotel_city}" Header="City" x:Name="City" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding ID}" Header="ID" x:Name="id" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" x:Name="name" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Mileage}" Header="Mileage" x:Name="mileage" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Transfer}" Header="Transfer" x:Name="transfer" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AviaCost}" Header="Avia cost" x:Name="aviacost" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Available}" Header="Available"  x:Name="available" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Description}" Header="Description" x:Name="description" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Country}" Header="Country" x:Name="country" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding City}" Header="City" x:Name="city" Width="Auto"></DataGridTextColumn>
+                
                 <DataGridTemplateColumn Header="Hotel info">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

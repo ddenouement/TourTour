@@ -29,10 +29,5 @@ namespace TourTour.Utilities
             return CurrentUser.IsLoggedIn();
         }
 
-        static public DbSet<Tour> GetTours()
-        {
-            return DBContextManager.GetTours();
-        } 
-
     }
 }

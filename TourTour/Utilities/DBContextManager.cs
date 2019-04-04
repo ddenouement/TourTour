@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Windows;
 
@@ -7,32 +6,24 @@ namespace TourTour.Utilities
 {
     static class DBContextManager
     {
-        private static DBContext dbContext;
-
-        static DBContextManager()
-        {
-            dbContext = new DBContext();
-        }
-
-        public static DBContext GetDBContext()
-        {
-            return dbContext;
-        }
 
         public static bool CreateUser(string mlogin, string memail, string mpassword)
         {
-            bool res = true;
+            bool res = false;
             try
             {
-                if ((dbContext.Users.FirstOrDefault(x => x.email == memail) != null || dbContext.Users.FirstOrDefault(x => x.login == mlogin) != null)) return false;
+                using (DBContext db = new DBContext())
+                {
+                    if ((db.Users.FirstOrDefault(x => x.email == memail) != null || db.Users.FirstOrDefault(x => x.login == mlogin) != null)) return false;
 
-                User user1 = new User { login = mlogin, email = memail, password = mpassword };
-                dbContext.Users.Add(user1);
-                dbContext.SaveChanges();
+                    User user1 = new User { login = mlogin, email = memail, password = mpassword };
+                    db.Users.Add(user1);
+                    db.SaveChanges();
+                    res = true;
+                }
             }
             catch (Exception ex)
             {
-                res = false;
                 MessageBox.Show(ex.ToString());
             }
 
@@ -44,18 +35,14 @@ namespace TourTour.Utilities
             User u = null;
             try
             {
-                u = (dbContext.Users.FirstOrDefault(x => x.login == mlogin && x.password == mpassword));
+                using (DBContext db = new DBContext())
+                    u = (db.Users.FirstOrDefault(x => x.login == mlogin && x.password == mpassword));
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
             return u;
-        }
-
-        public static DbSet<Tour> GetTours()
-        {
-            return dbContext.Tours;
         }
     }
 }

@@ -164,6 +164,7 @@
     <Compile Include="Utilities\CurrentUser.cs" />
     <Compile Include="Utilities\DBContext.cs" />
     <Compile Include="Utilities\DBContextManager.cs" />
+    <Compile Include="ViewModel\ToursViewModel.cs" />
     <Compile Include="View\AddHotelPage.xaml.cs">
       <DependentUpon>AddHotelPage.xaml</DependentUpon>
     </Compile>
@@ -262,9 +263,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ViewModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

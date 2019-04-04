@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using TourTour.Utilities;
+using TourTour.ViewModel;
 
 namespace TourTour.View
 {
@@ -18,6 +20,8 @@ namespace TourTour.View
     //колонки country i city берем с таблицы Отель соответсвенной для этого Тура(дублируем просто чтобы клиент видел)
     {
         static int PK_ID;
+
+        ToursViewModel tvm = new ToursViewModel();
 
         public ToursPage()
         {
@@ -70,13 +74,16 @@ namespace TourTour.View
             //     City = thc.c.city_name
             // });
 
-            var tours = from tour in DBContextManager.GetDBContext().Tours
-                        select tour;
+            //var tours = from tour in DBContextManager.GetDBContext().Tours
+            //            select tour;
 
-            tours.Load();
-            DataGridTours.ItemsSource = DBContextManager.GetDBContext().Tours.Local;
+            //tours.Load();
+            //DataGridTours.ItemsSource = DBContextManager.GetDBContext().Tours.Local;
 
-
+            
+            
+            DataGridTours.ItemsSource = tvm.items.ToBindingList();
+            
 
 
         }
