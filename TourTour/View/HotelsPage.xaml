@@ -9,44 +9,60 @@
       Title="HotelsPage">
 
     <Grid>
-        <Button Content="Add" Click="btn_add_click" Height="30" Width="30" Margin="60,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <Button Content="Back" Click="btn_back_click" Height="30" Width="30" Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
-        <DataGrid x:Name="datagridHotels" x:Uid="datagridHotels" SelectionMode="Single"  HorizontalAlignment="Center" ItemsSource="{Binding}"   AutoGenerateColumns="False"  Width="800" Margin="0,65,0,-0.4">
+        <Button Content="Back" Click="ButtonBack_Click" Height="30" Width="94"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Name="ButtonNewHotel" Content="New hotel" Click="ButtonNewHotel_Click" Height="30" Width="94"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"/>
+
+
+        <DataGrid x:Name="DataGridTours" RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Width="800" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding hotel_id}" Header="ID" x:Name="id" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding hotel_name}" Header="Name" x:Name="name" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding hotel_stars}" Header="Stars" x:Name="stars" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding hotel_price}" Header="Price" x:Name="price" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding city_name}" Header="City" x:Name="city" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding country_name}" Header="Country" x:Name="country" Width="Auto"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="Additional services" >
+                <DataGridTextColumn Binding="{Binding ID}" Header="ID" x:Name="id" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name" x:Name="name" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Stars}" Header="Stars" x:Name="stars" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Price}" Header="Price" x:Name="price" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Country}" Header="Country" x:Name="country" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding City}" Header="City" x:Name="city" Width="Auto"></DataGridTextColumn>
+
+                <DataGridTemplateColumn Header="Additional services" x:Name="ColumnAddServices">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ItemsControl ItemsSource="{Binding a}"/>
+                            <Button Content="Details" Click="ButtonHotelInfo_Click"></Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Edit">
+                <DataGridTemplateColumn Header="Edit" x:Name="ColumnEdit">
                     <DataGridTemplateColumn.CellTemplate >
                         <DataTemplate>
-                            <Button Content="Edit" Click="btn_edit" CommandParameter="{Binding id}"></Button>
+                            <Button Content="Edit" Click="ButtonEdit_Click"></Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Delete">
+                <DataGridTemplateColumn Header="Delete" x:Name="ColumnDelete">
                     <DataGridTemplateColumn.CellTemplate >
                         <DataTemplate>
-                            <Button Content="Delete" Click="btn_delete" ></Button>
+                            <Button Content="Delete" Click="ButtonDelete_Click" ></Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <TextBlock Name="txt_hotel_details" Text="{Binding id_hotel}" Margin="10" />
+                    <TextBlock Name="TextBlockHotelDetails" Text="{Binding add_services}" Margin="10" />
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>

@@ -164,9 +164,13 @@
     <Compile Include="Utilities\CurrentUser.cs" />
     <Compile Include="Utilities\DBContext.cs" />
     <Compile Include="Utilities\DBContextManager.cs" />
+    <Compile Include="ViewModel\HotelsViewModel.cs" />
     <Compile Include="ViewModel\ToursViewModel.cs" />
     <Compile Include="View\AddHotelPage.xaml.cs">
       <DependentUpon>AddHotelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddTourPage.xaml.cs">
+      <DependentUpon>AddTourPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ClientsPage.xaml.cs">
       <DependentUpon>ClientsPage.xaml</DependentUpon>
@@ -202,6 +206,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\AddHotelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddTourPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

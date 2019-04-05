@@ -4,6 +4,8 @@ namespace TourTour.Utilities
 {
     static class Adapter
     {
+        static public int? CurrentId=null;
+
          static public bool Login(string login, string password)
         {
             return CurrentUser.TryLogin(login, password);

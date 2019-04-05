@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
+using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes; 
+using TourTour.Utilities;
+using TourTour.ViewModel;
 
 namespace TourTour.View
 {
@@ -22,39 +14,78 @@ namespace TourTour.View
     /// </summary>
     public partial class HotelsPage : Page
     {
-        int PK_ID;
+        HotelsViewModel hvm;
+        
         public HotelsPage()
         {
             InitializeComponent();
+            FillGrid();
         }
-
-        private void fillgrid()
-        { 
-
-        }
-        private void btn_back_click(object sender, RoutedEventArgs e)
+        
+        private void ButtonHotelInfo_Click(object sender, RoutedEventArgs e)
         {
+            object obj = ((FrameworkElement)sender).DataContext as object;
+            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("ID");
+            int id = (int)(pi.GetValue(obj, null));
+
+
+            for (var vis = sender as Visual; vis != null; vis = VisualTreeHelper.GetParent(vis) as Visual)
+                if (vis is DataGridRow)
+                {
+                    var row = (DataGridRow)vis;
+                    row.DetailsVisibility = row.DetailsVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+                    break;
+                }
+
+        }
+        private void FillGrid()
+        {
+            hvm = new HotelsViewModel();
+            DataGridTours.ItemsSource = hvm.items.ToBindingList();
+        }
+
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        {
+            object obj = ((FrameworkElement)sender).DataContext as object;
+            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("ID");
+            int id = (int)(pi.GetValue(obj, null));
+            Adapter.CurrentId = id;
+
+            this.NavigationService.Navigate(new AddHotelPage());
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            object obj = ((FrameworkElement)sender).DataContext as object;
+            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("ID");
+            int id = (int)(pi.GetValue(obj, null));
+
+            if (MessageBox.Show("Delete selected hotel?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    using (DBContext db = new DBContext())
+                    {
+                        db.Hotels.Remove(db.Hotels.FirstOrDefault(x => x.hotel_id == id));
+                        db.SaveChanges();
+                    }
+                    MessageBox.Show("Hotel deleted successfully");
+                    FillGrid();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            Adapter.CurrentId = null;
             this.NavigationService.Navigate(new MainMenu());
-
         }
-        private void btn_edit(object s, RoutedEventArgs a)
+        private void ButtonNewHotel_Click(object sender, RoutedEventArgs e)
         {
-            var id1 = (DataRowView)datagridHotels.SelectedItem;  //Get  ID From  DataGrid after click on Delete Button.
-
-            PK_ID = Convert.ToInt32(id1.Row["id"].ToString());
-            //   SqlConnection con = new SqlConnection(sqlstring);
-            //   con.Open();
-            //    string sqlquery = "delete from t where id='" + PK_ID + "' ";
-            //   SqlCommand cmd = new SqlCommand(sqlquery, con);
-            //   cmd.ExecuteNonQuery();
-            fillgrid();
-
-        }
-        private void btn_delete(object s, RoutedEventArgs a)
-        {
-        }
-         
-        private void btn_add_click(object s, RoutedEventArgs a) {
+            Adapter.CurrentId = null;
             this.NavigationService.Navigate(new AddHotelPage());
         }
     }

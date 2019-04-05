@@ -16,6 +16,7 @@ namespace TourTour.Utilities
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<Hotel_service> Hotel_services { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
         public DbSet<Paycheck> Paychecks { get; set; }
 

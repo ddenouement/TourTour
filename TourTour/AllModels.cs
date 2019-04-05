@@ -80,8 +80,6 @@ namespace TourTour
 
         public int hotel_id { get; set; }
 
-
-
         public int service_id { get; set; }
         public decimal service_price { get; set; }
         [ForeignKey("hotel_id")]
