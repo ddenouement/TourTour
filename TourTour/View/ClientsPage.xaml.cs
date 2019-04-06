@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TourTour.Utilities;
+using TourTour.ViewModel;
 
 namespace TourTour.View
 {
@@ -22,133 +24,79 @@ namespace TourTour.View
     /// </summary>
     public partial class ClientsPage : Page
     {
-        //пример
-      //  string sqlstring = "Data Source=SQLDB;Initial Catalog=Demo;Persist Security Info=True;User ID=demoh;Password=Demo1@";
+        ClientsViewModel cvm;
 
-        static int PK_ID;
         public ClientsPage()
         {
 
             InitializeComponent();
-            fillgrid();
+            FillGrid();
         }
-        private void fillgrid()
+        private void FillGrid()
         {
-            //обновляем инфу в таблице datagridClients
-         //   SqlConnection con = new SqlConnection(sqlstring);
-       ////     con.Open();
-        //    string sqlquery = "select * from dsh_wpfCRUD";
-         //   SqlCommand cmd = new SqlCommand(sqlquery, con);
-           // SqlDataAdapter adp = new SqlDataAdapter(cmd);
-            // DataTable dt = new DataTable();
-            //adp.Fill(dt);
-          //  datagridClients.ItemsSource = dt.DefaultView;
-        //    con.Close();
+            cvm = new ClientsViewModel();
+            DataGridClients.ItemsSource = cvm.Clients;
         }
-        private void clearForm()
+        private void ButtonClientInfo_Click(object sender, RoutedEventArgs e)
         {
-            txtname.Text = string.Empty;
-            txtsurname.Text = string.Empty;
-            txtfathername.Text = string.Empty;
-            dateOBpicker.SelectedDate=DateTime.Now;
-            txtemail.Text = string.Empty;
-            txtcountry.Text = string.Empty;
-            txtaddress.Text = string.Empty;
-            txtcity.Text = string.Empty;
-            txtcontactno.Text = string.Empty;
-        }
-        private void btn_clearform_click(object sender, RoutedEventArgs e)
-        {
-            clearForm();
-        }
-        private void btn_submit_new_client_click(object sender, RoutedEventArgs e)
-        {//update або add (update якщо нажали до цього на кнопку edit. Add - по замовчуванню
+            int id = GetCurrentID(sender);
 
-            if (btnsubmit.Content.Equals("Update"))
+            for (var vis = sender as Visual; vis != null; vis = VisualTreeHelper.GetParent(vis) as Visual)
+                if (vis is DataGridRow)
+                {
+                    var row = (DataGridRow)vis;
+                    row.DetailsVisibility = row.DetailsVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+                    break;
+                }
+        }
+       
+        private void ButtonVouchers_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(cvm.Clients.ElementAt(0).Paychecks.ElementAt(0).Voucher.voucher_id+"");
+        }
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        {
+            int id = GetCurrentID(sender);
+            
+            Adapter.CurrentId = id;
+       //     this.NavigationService.Navigate(new AddHotelPage());
+        }
+
+        private void ButtonDelete_Click(object sender, RoutedEventArgs e)
+        {
+            int id = GetCurrentID(sender);
+
+            if (MessageBox.Show("Delete selected client?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                //Code for updating data
-                //  SqlConnection con = new SqlConnection(sqlstring);
-                // con.Open();
-                //string sqlquery = "update dsh_wpfCRUD set name=@name,address=@address,gender=@gender,country=@country,state=@state,city=@city,contactno=@contactno where id='" + PK_ID + "'";
-                //SqlCommand cmd = new SqlCommand(sqlquery, con);
-                //cmd.Parameters.AddWithValue("@name", txtname.Text);
-                //cmd.Parameters.AddWithValue("@address", txtname.Text);
-                //   cmd.Parameters.AddWithValue("@dateofbirth", dateOBpicker.toString());
-                //cmd.Parameters.AddwithValue("@email, txtemail.toString());
-                // cmd.Parameters.AddWithValue("@country", txtcountry.Text);
-                //   cmd.Parameters.AddWithValue("@state", txtstate.Text);
-                //   cmd.Parameters.AddWithValue("@city", txtcity.Text);
-                //   cmd.Parameters.AddWithValue("@contactno", txtcontactno.Text);
-                //   cmd.ExecuteNonQuery();
-                fillgrid();
-                clearForm();
-            }
-        
-         else //("Add"))
-            {
-
-
-                //пример как додавати дані до БД
-                /*   SqlConnection con = new SqlConnection(sqlstring);
-                   con.Open();
-                   string sqlquery = "insert into dsh_wpfCRUD (name,address,gender,country,state,city,contactno) values (@name,@address,@gender,@country,@state,@city,@contactno)";
-                   SqlCommand cmd = new SqlCommand(sqlquery, con);
-                   cmd.Parameters.AddWithValue("@name", txtname.Text);
-                   cmd.Parameters.AddWithValue("@address", txtaddress.Text);
-                    cmd.Parameters.AddWithValue("@country", txtcountry.Text);
-                    cmd.Parameters.AddWithValue("@dateofbirth", dateOBpicker.toString());
-                   cmd.Parameters.AddWithValue("@state", txtstate.Text);
-                    cmd.Parameters.AddwithValue("@email, txtemail.toString());
-                   cmd.Parameters.AddWithValue("@city", txtcity.Text);
-                   cmd.Parameters.AddWithValue("@contactno", txtcontactno.Text);
-                   cmd.ExecuteNonQuery();*/
-                fillgrid();
-                clearForm();
+                try
+                {
+                    using (DBContext db = new DBContext())
+                    {
+                        db.Hotels.Remove(db.Hotels.FirstOrDefault(x => x.hotel_id == id));
+                        db.SaveChanges();
+                    }
+                    MessageBox.Show("Client deleted successfully");
+                    FillGrid();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
-        private void btn_edit(object sender, RoutedEventArgs e)
-        {
 
-            var id1 = (DataRowView)datagridClients.SelectedItem; //get specific ID from   DataGrid after click on Edit button in DataGrid  
-         //   PK_ID = Convert.ToInt32(id1.Row["id"].ToString());
-         //   SqlConnection con = new SqlConnection(sqlstring);
-         //   con.Open();
-         //   string sqlquery = "select * from dsh_wpfCRUD where id='" + PK_ID + "' ";
-          //  SqlCommand cmd = new SqlCommand(sqlquery, con);
-         //   SqlDataAdapter adp = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-          //  adp.Fill(dt);
-            if (dt.Rows.Count > 0)
-            {
-                txtname.Text = dt.Rows[0]["name"].ToString();
-                txtfathername.Text= dt.Rows[0]["fathername"].ToString();
-                txtsurname.Text = dt.Rows[0]["surname"].ToString();
-                dateOBpicker.SelectedDate = DateTime.Parse( dt.Rows[0]["dateofbirth"].ToString());
-                txtemail.Text = dt.Rows[0]["email"].ToString();
-                txtaddress.Text = dt.Rows[0]["address"].ToString();               
-                txtcountry.Text = dt.Rows[0]["country"].ToString();
-                txtstate.Text = dt.Rows[0]["state"].ToString();
-                txtcity.Text = dt.Rows[0]["city"].ToString();
-                txtcontactno.Text = dt.Rows[0]["contactno"].ToString();
-            }
-            btnsubmit.Content = "Update";
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            Adapter.CurrentId = null;
+            this.NavigationService.Navigate(new MainMenu());
         }
-        private void btn_delete(object sender, RoutedEventArgs e)
+        private int GetCurrentID(object sender)
         {
-           var id1 = (DataRowView)datagridClients.SelectedItem;  //Get  ID From  DataGrid after click on Delete Button.
+            object obj = ((FrameworkElement)sender).DataContext as object;
+            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("client_id");
+            int id = (int)(pi.GetValue(obj, null));
 
-            PK_ID = Convert.ToInt32(id1.Row["id"].ToString());
-         //   SqlConnection con = new SqlConnection(sqlstring);
-         //   con.Open();
-        //    string sqlquery = "delete from dsh_wpfCRUD where id='" + PK_ID + "' ";
-         //   SqlCommand cmd = new SqlCommand(sqlquery, con);
-         //   cmd.ExecuteNonQuery();
-            fillgrid();
-        }
-        private void btn_back_click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService.Navigate(new  MainMenu());
-
+            return id;
         }
     }
 }

@@ -40,6 +40,7 @@ namespace TourTour
         public Client()
         {
             this.Phone_number = new HashSet<Phone_number>();
+            this.Paychecks = new HashSet<Paycheck>();
         }
         [Key]
         public int client_id { get; set; }
@@ -58,6 +59,8 @@ namespace TourTour
         public string email { get; set; }
 
 
+        public virtual ICollection<Paycheck> Paychecks { get; set; }
+         
         public virtual ICollection<Phone_number> Phone_number { get; set; }
     }
     public partial class Country
