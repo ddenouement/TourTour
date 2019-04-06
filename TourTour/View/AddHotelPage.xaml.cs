@@ -58,22 +58,28 @@ namespace TourTour.View
             DataGridHotelServices.ItemsSource = hotelservices;
         }
 
-        private void FillCities()
+        private void FillCountries()
         {
-            var countryid = ComboBoxCountry.SelectedValue;
-            ObservableCollection<City> items = new ObservableCollection<City>(db.Countries.FirstOrDefault(x => x.country_id == (int)countryid).City);
-
-            ComboBoxCity.ItemsSource = items.ToBindingList();
-
-            if (items.Count > 0)
-                ComboBoxCity.SelectedIndex = 0;
-            else
-                ComboBoxCity.SelectedIndex = -1;
+            ComboBoxCountry.ItemsSource = db.Countries.Local.ToBindingList();
 
             if (hotelid > -1)
             {
-                ComboBoxCity.SelectedValue = currenthotel.City.city_id;
+                
             }
+        }
+
+        private void FillCities()
+        {
+                var countryid = ComboBoxCountry.SelectedValue;
+                var query = db.Countries.FirstOrDefault(x => x.country_id == (int)countryid).City;
+                List<City> items = query.ToList();
+
+                ComboBoxCity.ItemsSource = items;
+
+                if (items.Count > 0)
+                    ComboBoxCity.SelectedIndex = 0;
+                else
+                    ComboBoxCity.SelectedIndex = -1;
         }
 
         private void FillServices()
@@ -81,16 +87,7 @@ namespace TourTour.View
             ComboBoxServices.ItemsSource = db.Services.Local.ToBindingList();
         }
 
-        private void FillCountries()
-        {
-            ComboBoxCountry.ItemsSource = db.Countries.Local.ToBindingList();
-
-            if (hotelid > -1)
-            {
-                ComboBoxCountry.SelectedValue = currenthotel.City.Country.country_id;
-                FillCities();
-            }
-        }
+        
 
         private void ButtonAddHotelService_Click(object s, RoutedEventArgs e)
         {
