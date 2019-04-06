@@ -35,6 +35,7 @@ namespace TourTour.View
         private void FillGrid()
         {
             cvm = new ClientsViewModel();
+            DataGridClients.ItemsSource = null;
             DataGridClients.ItemsSource = cvm.Clients;
         }
         private void ButtonClientInfo_Click(object sender, RoutedEventArgs e)
@@ -54,12 +55,33 @@ namespace TourTour.View
         {
             MessageBox.Show(cvm.Clients.ElementAt(0).Paychecks.ElementAt(0).Voucher.voucher_id+"");
         }
+
+        private void ButtonPayed_Click(object sender, RoutedEventArgs e)
+        {
+            int id = GetCurrentID(sender);
+            try
+            {
+                using (DBContext db = new DBContext())
+                {
+                    if (db.Paychecks.FirstOrDefault(x => x.voucher_id == id).payed) db.Paychecks.FirstOrDefault(x => x.voucher_id == id).payed = false;
+                    else db.Paychecks.FirstOrDefault(x => x.voucher_id == id).payed = true;
+                    db.SaveChanges();
+                }
+                FillGrid();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
             int id = GetCurrentID(sender);
             
             Adapter.CurrentId = id;
-       //     this.NavigationService.Navigate(new AddHotelPage());
+            this.NavigationService.Navigate(new AddClientPage());
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
@@ -72,7 +94,7 @@ namespace TourTour.View
                 {
                     using (DBContext db = new DBContext())
                     {
-                        db.Hotels.Remove(db.Hotels.FirstOrDefault(x => x.hotel_id == id));
+                        db.Clients.Remove(db.Clients.FirstOrDefault(x => x.client_id == id));
                         db.SaveChanges();
                     }
                     MessageBox.Show("Client deleted successfully");
@@ -90,6 +112,7 @@ namespace TourTour.View
             Adapter.CurrentId = null;
             this.NavigationService.Navigate(new MainMenu());
         }
+
         private int GetCurrentID(object sender)
         {
             object obj = ((FrameworkElement)sender).DataContext as object;
@@ -98,5 +121,7 @@ namespace TourTour.View
 
             return id;
         }
+
+        
     }
 }

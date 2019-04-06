@@ -27,9 +27,6 @@ namespace TourTour.View
         private void ButtonSignUp_Click(object sender, RoutedEventArgs e)
         {
 
-            //TODO: form validation!!
-            //   if(true)
-
             if (Adapter.Signup(TextBoxUsername.Text, TextBoxEmail.Text, PasswordBoxPassword.Password))
             {
                 NavigationService ns = NavigationService.GetNavigationService(this);

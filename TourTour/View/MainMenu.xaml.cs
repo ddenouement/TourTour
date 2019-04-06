@@ -42,7 +42,7 @@ namespace TourTour.View
         }
         private void ButtonCart_Click(object sender, RoutedEventArgs a)
         {
-
+            this.NavigationService.Navigate(new CartPage());
         }
     }
 }

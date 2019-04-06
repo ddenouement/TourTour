@@ -15,7 +15,6 @@ namespace TourTour.View
     /// Логика взаимодействия для ToursPage.xaml
     /// </summary>
     public partial class ToursPage : Page
-    //колонки country i city берем с таблицы Отель соответсвенной для этого Тура(дублируем просто чтобы клиент видел)
     {
         ToursViewModel tvm;
 
@@ -32,7 +31,7 @@ namespace TourTour.View
             }
             else
             {
-                ColumnAddToCart.Visibility = Visibility.Collapsed;
+                //ColumnAddToCart.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -52,6 +51,7 @@ namespace TourTour.View
         private void FillGrid()
         {
             tvm = new ToursViewModel();
+            DataGridTours.ItemsSource = null;
             DataGridTours.ItemsSource = tvm.Tours;
         }
 
@@ -100,9 +100,20 @@ namespace TourTour.View
 
         private void ButtonAddToCart_Click(object sender, RoutedEventArgs a)
         {
-
+            int id = GetCurrentID(sender);
+            using (DBContext db = new DBContext())
+            {
+                db.Tours.Load();
+                Adapter.Cart.Add(id);
+                MessageBox.Show("Tour added to cart ");
+            }
         }
 
+        private void ButtonCart_Click(object sender, RoutedEventArgs a)
+        {
+            Adapter.CurrentId = null;
+            this.NavigationService.Navigate(new CartPage());
+        }
 
         private int GetCurrentID(object sender)
         {

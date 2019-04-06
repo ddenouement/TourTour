@@ -9,6 +9,66 @@
       Title="AddClientPage">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
         
+        <Label Grid.Row="1" Content="Name*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Label Grid.Row="2" Content="Surname*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Label Grid.Row="3" Content="Patronymic*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Label Grid.Row="4" Content="Email*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Label Grid.Row="5" Content="Date of birth*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Label Grid.Row="6" Content="Phone number: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Label Grid.Row="7" Content="Country*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Label Grid.Row="7" Content="Region: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="3"/>
+        <Label Grid.Row="8" Content="City*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Label Grid.Row="8" Content="Area: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="3"/>
+        <Label Grid.Row="9" Content="Street*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Label Grid.Row="9" Content="House*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="3"/>
+        <Label Grid.Row="10" Content="Block: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
+        <Label Grid.Row="10" Content="Apartment*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="3"/>
+
+        <TextBox x:Name="TextBoxName" Grid.Row="1" Grid.Column="2" TabIndex="1" VerticalAlignment="Center" Height="25" Width="Auto" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="TextBoxSurname" Grid.Row="2" Grid.Column="2" TabIndex="2" VerticalAlignment="Center" Height="25" Width="Auto" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="TextBoxPatronymic" Grid.Row="3"  Grid.Column="2" TabIndex="3" VerticalAlignment="Center" Height="25" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="TextBoxEmail" Grid.Row="4"  Grid.Column="2"  TabIndex="4" VerticalAlignment="Center" Height="25" Width="Auto" Grid.ColumnSpan="3"/>
+        <DatePicker x:Name="DatePickerBirthDate" Grid.Row="5"  Grid.Column="2" TabIndex="5" VerticalAlignment="Center" Height="25" Width="Auto" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="TextBoxPhone" Grid.Row="6"  Grid.Column="2"  TabIndex="6" VerticalAlignment="Center" Height="25" Width="Auto" Grid.ColumnSpan="3"/>
+        
+        <TextBox x:Name="TextBoxCountry" Grid.Row="7"  Grid.Column="2"  TabIndex="7" VerticalAlignment="Center"  Height="25" Width="Auto" Grid.ColumnSpan="1"/>
+        <TextBox x:Name="TextBoxRegion" Grid.Row="7"  Grid.Column="4"  TabIndex="8" VerticalAlignment="Center"  Height="25" Width="Auto" Grid.ColumnSpan="1"/>
+        <TextBox x:Name="TextBoxCity" Grid.Row="8"  Grid.Column="2"  TabIndex="9" VerticalAlignment="Center"  Height="25" Width="Auto" Grid.ColumnSpan="1"/>
+        <TextBox x:Name="TextBoxArea" Grid.Row="8"  Grid.Column="4"  TabIndex="10" VerticalAlignment="Center"  Height="25" Width="Auto" Grid.ColumnSpan="1"/>
+        <TextBox x:Name="TextBoxStreet" Grid.Row="9"  Grid.Column="2"  TabIndex="11" VerticalAlignment="Center"  Height="25" Width="Auto" Grid.ColumnSpan="1"/>
+        <TextBox x:Name="TextBoxHouse" Grid.Row="9"  Grid.Column="4"  TabIndex="12" VerticalAlignment="Center"  Height="25" Width="Auto" Grid.ColumnSpan="1"/>
+        <TextBox x:Name="TextBoxBlock" Grid.Row="10"  Grid.Column="2"  TabIndex="13" VerticalAlignment="Center"  Height="25" Width="Auto" Grid.ColumnSpan="1"/>
+        <TextBox x:Name="TextBoxApartment" Grid.Row="10"  Grid.Column="4"  TabIndex="14" VerticalAlignment="Center"  Height="25" Width="Auto" Grid.ColumnSpan="1"/>
+       
+
+        <Button Name="ButtonSubmit" Click="ButtonSubmit_Click" TabIndex="15" Content="Submit" Height="30" VerticalAlignment="Center" Grid.Column="2" Grid.Row="12" />
+        <Button Name="ButtonCancel" Click="ButtonCancel_Click" TabIndex="16" Content="Cancel" Height="30" VerticalAlignment="Center" Grid.Column="4" Grid.Row="12"/>
     </Grid>
 </Page>

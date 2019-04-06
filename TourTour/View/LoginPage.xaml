@@ -36,11 +36,11 @@
         <Label Content="Username: " FontSize="18" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"  HorizontalAlignment="Right" />
         <Label Content="Password: " FontSize="18" VerticalAlignment="Center" Grid.Column="1" Grid.Row="5"  HorizontalAlignment="Right" />
 
-        <TextBox x:Name="TextBoxUsername" TabIndex="1" FontSize="18" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="335" ToolTip="User Name" Grid.ColumnSpan="3" Grid.Column="2" Grid.Row="4"/>
-        <PasswordBox x:Name="PasswordBoxPassword" TabIndex="2" FontSize="18"  HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="335" ToolTip="Password"  Grid.ColumnSpan="3" Grid.Column="2" Grid.Row="5"/>
+        <TextBox x:Name="TextBoxUsername" TabIndex="1" FontSize="18"  Height="30" VerticalAlignment="Center" Width="Auto" ToolTip="User Name" Grid.ColumnSpan="3" Grid.Column="2" Grid.Row="4"/>
+        <PasswordBox x:Name="PasswordBoxPassword" TabIndex="2" FontSize="18"   Height="30" VerticalAlignment="Center" Width="Auto" ToolTip="Password"  Grid.ColumnSpan="3" Grid.Column="2" Grid.Row="5"/>
 
-        <Button x:Name="ButtonSignUp" Content="Sign up" TabIndex="4" FontSize="18"  HorizontalAlignment="Center" VerticalAlignment="Center"  Click="ButtonSignUp_Click" Grid.Row="7" Grid.Column="4" Width="110" Height="35"/>
         <Button x:Name="ButtonLogIn" Content="Log In" TabIndex="3" FontSize="18"    HorizontalAlignment="Center" VerticalAlignment="Center"  Click="ButtonLogIn_Click"  Grid.Row="7" Grid.Column="2" Width="110" Height="35"/>
+        <Button x:Name="ButtonSignUp" Content="Sign up" TabIndex="4" FontSize="18"  HorizontalAlignment="Center" VerticalAlignment="Center"  Click="ButtonSignUp_Click" Grid.Row="7" Grid.Column="4" Width="110" Height="35"/>
 
     </Grid>
 </Page>

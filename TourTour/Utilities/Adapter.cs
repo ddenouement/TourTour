@@ -1,18 +1,21 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
 
 namespace TourTour.Utilities
 {
     static class Adapter
     {
         static public int? CurrentId=null;
+        static public List<int> Cart=new List<int>();
 
-         static public bool Login(string login, string password)
+        static public bool Login(string login, string password)
         {
+            Cart = new List<int>();
             return CurrentUser.TryLogin(login, password);
         } 
 
         static public void Logout()
         {
+            Cart = new List<int>();
             CurrentUser.Logout();
         }
 

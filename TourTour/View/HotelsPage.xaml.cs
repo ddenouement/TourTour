@@ -38,6 +38,7 @@ namespace TourTour.View
         private void FillGrid()
         {
             hvm = new HotelsViewModel();
+            DataGridHotels.ItemsSource = null;
             DataGridHotels.ItemsSource = hvm.Hotels;
         }
 

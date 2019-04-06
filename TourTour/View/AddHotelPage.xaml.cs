@@ -86,7 +86,6 @@ namespace TourTour.View
         {
             ComboBoxServices.ItemsSource = db.Services.Local.ToBindingList();
         }
-
         
 
         private void ButtonAddHotelService_Click(object s, RoutedEventArgs e)
@@ -180,24 +179,6 @@ namespace TourTour.View
                     {
                         db.Hotels.Add(currenthotel);
                     }
-                    
-                    //// adding new services
-                    //foreach (Hotel_service item in hotelservices)
-                    //{
-                    //    if (db.Hotel_services.Count(x => x.Hotel_service_id == item.Hotel_service_id) == 0)
-                    //    {
-                    //        db.Hotel_services.Add(item);
-                    //    }
-                    //}
-
-                    ////removing deleted services
-                    //foreach (Hotel_service item in db.Hotel_services)
-                    //{
-                    //    if (hotelservices.Count(x=> x.Hotel_service_id == item.Hotel_service_id) == 0)
-                    //    {
-                    //        db.Hotel_services.Remove(db.Hotel_services.FirstOrDefault(x => x.Hotel_service_id == item.Hotel_service_id));
-                    //    }
-                    //}
 
                     db.SaveChanges();
 

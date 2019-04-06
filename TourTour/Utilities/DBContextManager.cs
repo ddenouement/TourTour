@@ -44,5 +44,21 @@ namespace TourTour.Utilities
             }
             return u;
         }
+
+        //public static bool CreateTour(Tour tour)
+        //{
+        //    try
+        //    {
+        //        using (DBContext db = new DBContext())
+        //        {
+                    
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.ToString());
+        //        return false;
+        //    }
+        //}
     }
 }

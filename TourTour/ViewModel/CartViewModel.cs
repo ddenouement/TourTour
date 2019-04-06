@@ -3,41 +3,30 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows;
+using System.Text;
+using System.Threading.Tasks;
 using TourTour.Utilities;
 
 namespace TourTour.ViewModel
 {
-    class ClientsViewModel : INotifyPropertyChanged
+    class CartViewModel : INotifyPropertyChanged
     {
-        DBContext db = new DBContext();
-
-        private List<Client> _clients;
-        public List<Client> Clients
+        private List<Tour> _cart;
+        public List<Tour> Cart
         {
             get
             {
-                return _clients;
+                return _cart;
             }
             set
             {
-                _clients = value;
+                _cart = value;
             }
         }
 
-        public ClientsViewModel()
+        public CartViewModel()
         {
-            try
-            {
-                var query = from hotel in db.Clients
-                            select hotel;
-
-                Clients = query.ToList();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
+            //Cart = new List<Tour>(Adapter.Cart);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

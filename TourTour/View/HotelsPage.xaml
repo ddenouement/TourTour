@@ -24,11 +24,12 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
+        <Label Content="Hotels" FontWeight="Bold" Grid.Column="3" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         <Button Content="Back" Click="ButtonBack_Click" Height="30" Width="94"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button Name="ButtonNewHotel" Content="New hotel" Click="ButtonNewHotel_Click" Height="30" Width="94"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"/>
 
 
-        <DataGrid x:Name="DataGridHotels" ItemsSource="{Binding Hotels, Mode=OneWay}" RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Width="800" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
+        <DataGrid x:Name="DataGridHotels" ItemsSource="{Binding Hotels, Mode=OneWay}" RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Width="Auto" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding hotel_id}" Header="ID" x:Name="id" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding hotel_name}" Header="Name" x:Name="name" Width="*"></DataGridTextColumn>
@@ -62,7 +63,12 @@
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <DataGrid ItemsSource="{Binding Hotel_service}" AutoGenerateColumns="False">
+                    <DataGrid ItemsSource="{Binding Hotel_service}" AutoGenerateColumns="False" Margin="10">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="Background" Value="Lavender" />
+                            </Style>
+                        </DataGrid.RowStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Service.service_name}" Header="Service name" x:Name="servicename" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                             <DataGridTextColumn Binding="{Binding service_price}" Header="Price" x:Name="serviceprice" IsReadOnly="True" Width="Auto"></DataGridTextColumn>

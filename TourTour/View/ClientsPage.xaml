@@ -24,17 +24,22 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
+        <Label Content="Clients" FontWeight="Bold" Grid.Column="3" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         <Button Content="Back" Click="ButtonBack_Click" Height="30" Width="94"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-       
 
-        <DataGrid x:Name="DataGridClients" ItemsSource="{Binding Clients, Mode=OneWay}" RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Width="800" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
+        <DataGrid x:Name="DataGridClients" ItemsSource="{Binding Clients, Mode=OneWay}" RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                        <Setter Property="Background" Value="Gainsboro" />
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding client_id}" Header="ID" x:Name="id" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding client_name}" Header="Name" x:Name="name" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding client_name}" Header="Name" x:Name="name" Width="*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding client_surname}" Header="Surname" x:Name="surname" Width="Auto"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding client_patronym}" Header="Patronymic" x:Name="patr" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding birth_date}" Header="DOB" x:Name="dob"  Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding client_email}" Header="Email" x:Name="email" Width="Auto"></DataGridTextColumn> 
+                <DataGridTextColumn Binding="{Binding birth_date}" Header="Birth Date" x:Name="dob"  Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding email}" Header="Email" x:Name="email" Width="Auto"></DataGridTextColumn> 
 
                 
                 <DataGridTemplateColumn Header="Info" x:Name="ColumnPhones">
@@ -63,39 +68,44 @@
             
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Vertical"> 
-                        <TextBlock Text="{Binding  country, StringFormat=Country: {0}}" />
-                        <TextBlock Text="{Binding  region, StringFormat=Region: {0}}" />
-                        <TextBlock Text="{Binding  area, StringFormat=Area: {0}}" />
-                        <TextBlock Text="{Binding city, StringFormat=City: {0}}" />
-                        <TextBlock Text="{Binding  street, StringFormat=Street: {0}}" />
-                        <TextBlock Text="{Binding  house, StringFormat=House: {0}}" />
-                        <TextBlock Text="{Binding  block, StringFormat=Block: {0}}" /> 
-                        <TextBlock Text="{Binding  apt, StringFormat=Apt: {0}}" />
-                        <TextBlock Text="Phone numbers:"></TextBlock>
+                    <StackPanel Orientation="Vertical" Margin="10" Background="FloralWhite"> 
+                        <TextBlock Text="{Binding  country, StringFormat=Country: {0}}" Margin="5,0"/>
+                        <TextBlock Text="{Binding  region, StringFormat=Region: {0}}" Margin="5,0"/>
+                        <TextBlock Text="{Binding  area, StringFormat=Area: {0}}" Margin="5,0"/>
+                        <TextBlock Text="{Binding city, StringFormat=City: {0}}" Margin="5,0"/>
+                        <TextBlock Text="{Binding  street, StringFormat=Street: {0}}" Margin="5,0"/>
+                        <TextBlock Text="{Binding  house, StringFormat=House: {0}}" Margin="5,0"/>
+                        <TextBlock Text="{Binding  block, StringFormat=Block: {0}}" Margin="5,0"/>
+                        <TextBlock Text="{Binding  apt, StringFormat=Apt: {0}}" Margin="5,0"/>
+                        <TextBlock Text="Phone numbers:" TextAlignment="Left" FontWeight="Bold" Margin="5,10"></TextBlock>
+
                         <DataGrid ItemsSource="{Binding  Phone_number}" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding phone_num}" Header="phone number" x:Name="phonenum" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                             </DataGrid.Columns>
                         </DataGrid>
-                         
-                        <TextBlock Text="Vouchers:"></TextBlock>
-                        <DataGrid ItemsSource="{Binding  Paychecks}"  AutoGenerateColumns="False">
+
+                        <TextBlock Text="Vouchers:" TextAlignment="Left" FontWeight="Bold" Margin="5,10"></TextBlock>
+                        <DataGrid x:Name="DataGridPaychecks" ItemsSource="{Binding  Paychecks}"  AutoGenerateColumns="False" >
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding  check_id}" Header="Id" x:Name="pid" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                                 <DataGridTextColumn Binding="{Binding  ppl_count}" Header="# people " x:Name="ppl" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                                 <DataGridTextColumn Binding="{Binding  payed}" Header="Payed" x:Name="paid" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                                 <DataGridTextColumn Binding="{Binding  pay_date}" Header="Pay date" x:Name="pd" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
-                                <DataGridTextColumn Binding="{Binding   Voucher.start_date}" Header="Start" x:Name="start" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding  Voucher.start_date}" Header="Start" x:Name="start" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                                 <DataGridTextColumn Binding="{Binding  Voucher.end_date}" Header="End" x:Name="end" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
-                                <DataGridTextColumn Binding="{Binding    Voucher.insurance_cost}" Header="Insurance" x:Name="insurance" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                                <DataGridTextColumn Binding="{Binding  Voucher.insurance_cost}" Header="Insurance" x:Name="insurance" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                                 <DataGridTextColumn Binding="{Binding  Voucher.feedback}" Header="Feedback" x:Name="vid" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
 
+                                <DataGridTemplateColumn Header="Payed" x:Name="ColumnPayed" Width="Auto">
+                                    <DataGridTemplateColumn.CellTemplate >
+                                        <DataTemplate>
+                                            <Button Content="Payed" Click="ButtonPayed_Click" ></Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
                         </DataGrid>
-
-
-
                     </StackPanel>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
