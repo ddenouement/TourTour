@@ -78,7 +78,6 @@ namespace TourTour.View
 
                     db.SaveChanges();
 
-
                     MessageBox.Show(tname + " tour created successfully");
                     this.NavigationService.Navigate(new ToursPage());
                 }

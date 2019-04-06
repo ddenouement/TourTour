@@ -37,6 +37,7 @@ namespace TourTour.ViewModel
                                 add_services = hotel.Hotel_service
                             };
 
+                query.OrderBy(x => x.ID);
                 items = new ObservableCollection<object>(query);
             }
             catch (Exception ex)

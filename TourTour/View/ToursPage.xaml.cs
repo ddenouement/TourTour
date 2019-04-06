@@ -33,6 +33,7 @@ namespace TourTour.View
                 ColumnAddToCart.Visibility = Visibility.Collapsed;
             }
         }
+
         private void ButtonHotelInfo_Click(object sender, RoutedEventArgs e)
         {
             int id = GetCurrentID(sender);
@@ -44,9 +45,9 @@ namespace TourTour.View
                     row.DetailsVisibility = row.DetailsVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
                     break;
                 }
-
-
+            
         }
+
         private void FillGrid()
         {
             tvm = new ToursViewModel();
@@ -83,16 +84,19 @@ namespace TourTour.View
                 }
             }
         }
+
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             Adapter.CurrentId = null;
             this.NavigationService.Navigate(new MainMenu());
         }
+
         private void ButtonNewTour_Click(object sender, RoutedEventArgs e)
         {
             Adapter.CurrentId = null;
             this.NavigationService.Navigate(new AddTourPage());
         }
+
         private void ButtonAddToCart_Click(object sender, RoutedEventArgs a)
         {
 

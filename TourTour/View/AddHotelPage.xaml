@@ -49,22 +49,23 @@
         <TextBox Name="TextBoxHotelName" Height="20" VerticalAlignment="Center" Grid.ColumnSpan="6" Grid.Column="3" Grid.Row="1" />
         <TextBox Name="TextBoxHotelStars"  Height="20" VerticalAlignment="Center" Grid.ColumnSpan="6" Grid.Column="3" Grid.Row="2" />
         <TextBox Name="TextBoxHotelPrice"  Height="20" VerticalAlignment="Center" Grid.ColumnSpan="6" Grid.Column="3" Grid.Row="3"  />
-        <ComboBox Name="ComboBoxCountry" Height="20" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="4" />
-        <ComboBox Name="ComboBoxCity" Height="20" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="7" Grid.Row="4"  />
+        <ComboBox Name="ComboBoxCountry" ItemsSource="{Binding Country}" DisplayMemberPath="country_name" SelectedValuePath="country_id" Height="20" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="4" SelectionChanged="ComboBoxCountry_SelectionChanged" />
+        <ComboBox Name="ComboBoxCity" ItemsSource="{Binding City}" DisplayMemberPath="city_name" SelectedValuePath="city_id" Height="20" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="7" Grid.Row="4"  />
         <Button Name="ButtonNewCity" Click="ButtonNewCity_Click" Content="Add new city" Margin="10,0"  Height="25" VerticalAlignment="Center" Grid.Column="9" Grid.Row="4" Grid.ColumnSpan="2" />
 
-        <ComboBox Name="ComboBoxServices"  Grid.Column="3" Height="24" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="6" />
+        <ComboBox Name="ComboBoxServices" ItemsSource="{Binding Service}" DisplayMemberPath="service_name" SelectedValuePath="service_id"  Grid.Column="3" Height="24" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="6" />
         <TextBox Name="TextBoxServicePrice" Grid.Column="3" Height="20" VerticalAlignment="Top" Grid.Row="7 " Grid.ColumnSpan="2"/>
         <Label Content="Service price: " VerticalAlignment="Top" Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="2" HorizontalAlignment="Right"/>
         <Label Content="Service name: " VerticalAlignment="Top" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right"/>
-        <Button Name="ButtonAddServiceToHotel" Content="Add service to hotel" Click="ButtonAddServiceToHotel_Click" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="8"/>
-        <Button Name="ButtonNewService" Content="Create new service" Click="ButtonNewService_Click" Grid.Column="3" Grid.Row="9" Grid.ColumnSpan="2"/>
+        <Button Name="ButtonAddHotelService" Content="Add service to hotel" Click="ButtonAddHotelService_Click" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="8"/>
+        <Button x:Name="ButtonDeleteHotelService" Content="Delete service from hotel" Click="ButtonDeleteHotelService_Click" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="9"/>
+        <Button Name="ButtonNewService" Content="Create new service" Click="ButtonNewService_Click"  Margin="10,0"  Height="25" VerticalAlignment="Center" Grid.Column="9" Grid.Row="6" Grid.ColumnSpan="2"/>
 
-        <DataGrid   x:Name="datagridHotelAdd" x:Uid="datagridHotelAdd" SelectionMode="Single"   ItemsSource="{Binding }" AutoGenerateColumns="False"   Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="4">
+        <DataGrid x:Name="DataGridHotelServices" SelectionMode="Single"  HorizontalAlignment="Center" AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True"  Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="4">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name"  Width="Auto" Binding="{Binding serviceName}">
+                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding ServiceName}">
                 </DataGridTextColumn>
-                <DataGridTextColumn  Header="Price"  Width="Auto" Binding="{Binding serviceHotelPrice}">
+                <DataGridTextColumn  Header="Price" Width="Auto" Binding="{Binding ServiceHotelPrice}">
                 </DataGridTextColumn>
             </DataGrid.Columns>
 
@@ -72,6 +73,7 @@
 
         <Button Name="ButtonSubmit" Click="ButtonSubmit_Click" Content="Add" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="11" />
         <Button Name="ButtonCancel" Click="ButtonCancel_Click" Content="Cancel" Grid.Row="11" Grid.Column="7" Grid.ColumnSpan="2"/>
+        
 
     </Grid>
 </Page>

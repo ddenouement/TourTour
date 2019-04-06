@@ -24,10 +24,7 @@ namespace TourTour.View
         
         private void ButtonHotelInfo_Click(object sender, RoutedEventArgs e)
         {
-            object obj = ((FrameworkElement)sender).DataContext as object;
-            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("ID");
-            int id = (int)(pi.GetValue(obj, null));
-
+            int id = GetCurrentID(sender);
 
             for (var vis = sender as Visual; vis != null; vis = VisualTreeHelper.GetParent(vis) as Visual)
                 if (vis is DataGridRow)
@@ -36,29 +33,25 @@ namespace TourTour.View
                     row.DetailsVisibility = row.DetailsVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
                     break;
                 }
-
         }
+
         private void FillGrid()
         {
             hvm = new HotelsViewModel();
-            DataGridTours.ItemsSource = hvm.items.ToBindingList();
+            DataGridHotels.ItemsSource = hvm.items.ToBindingList();
         }
 
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
         {
-            object obj = ((FrameworkElement)sender).DataContext as object;
-            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("ID");
-            int id = (int)(pi.GetValue(obj, null));
-            Adapter.CurrentId = id;
+            int id = GetCurrentID(sender);
 
+            Adapter.CurrentId = id;
             this.NavigationService.Navigate(new AddHotelPage());
         }
 
         private void ButtonDelete_Click(object sender, RoutedEventArgs e)
         {
-            object obj = ((FrameworkElement)sender).DataContext as object;
-            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("ID");
-            int id = (int)(pi.GetValue(obj, null));
+            int id = GetCurrentID(sender);
 
             if (MessageBox.Show("Delete selected hotel?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
@@ -78,15 +71,26 @@ namespace TourTour.View
                 }
             }
         }
+
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
             Adapter.CurrentId = null;
             this.NavigationService.Navigate(new MainMenu());
         }
+
         private void ButtonNewHotel_Click(object sender, RoutedEventArgs e)
         {
             Adapter.CurrentId = null;
             this.NavigationService.Navigate(new AddHotelPage());
+        }
+
+        private int GetCurrentID(object sender)
+        {
+            object obj = ((FrameworkElement)sender).DataContext as object;
+            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("ID");
+            int id = (int)(pi.GetValue(obj, null));
+
+            return id;
         }
     }
 }
