@@ -28,14 +28,14 @@
         <Button Name="ButtonNewHotel" Content="New hotel" Click="ButtonNewHotel_Click" Height="30" Width="94"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"/>
 
 
-        <DataGrid x:Name="DataGridHotels" RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Width="800" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
+        <DataGrid x:Name="DataGridHotels" ItemsSource="{Binding Hotels, Mode=OneWay}" RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Width="800" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding ID}" Header="ID" x:Name="id" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name" x:Name="name" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Stars}" Header="Stars" x:Name="stars" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Price}" Header="Price" x:Name="price" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Country}" Header="Country" x:Name="country" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding City}" Header="City" x:Name="city" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding hotel_id}" Header="ID" x:Name="id" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding hotel_name}" Header="Name" x:Name="name" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding stars}" Header="Stars" x:Name="stars" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding hotel_price}" Header="Price" x:Name="price" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding City.Country.country_name}" Header="Country" x:Name="country" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding City.city_name}" Header="City" x:Name="city" Width="Auto"></DataGridTextColumn>
 
                 <DataGridTemplateColumn Header="Additional services" x:Name="ColumnAddServices">
                     <DataGridTemplateColumn.CellTemplate>
@@ -62,7 +62,12 @@
             </DataGrid.Columns>
             <DataGrid.RowDetailsTemplate>
                 <DataTemplate>
-                    <TextBlock Name="TextBlockHotelDetails" Text="{Binding add_services}" Margin="10" />
+                    <DataGrid ItemsSource="{Binding Hotel_service}" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Service.service_name}" Header="Service name" x:Name="servicename" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding service_price}" Header="Price" x:Name="serviceprice" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
         </DataGrid>

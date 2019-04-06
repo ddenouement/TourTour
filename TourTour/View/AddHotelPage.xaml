@@ -61,11 +61,11 @@
         <Button x:Name="ButtonDeleteHotelService" Content="Delete service from hotel" Click="ButtonDeleteHotelService_Click" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="9"/>
         <Button Name="ButtonNewService" Content="Create new service" Click="ButtonNewService_Click"  Margin="10,0"  Height="25" VerticalAlignment="Center" Grid.Column="9" Grid.Row="6" Grid.ColumnSpan="2"/>
 
-        <DataGrid x:Name="DataGridHotelServices" SelectionMode="Single"  HorizontalAlignment="Center" AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True"  Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="4">
+        <DataGrid x:Name="DataGridHotelServices" SelectionMode="Single" ItemsSource="{Binding Hotel_services, Mode=OneWay}" HorizontalAlignment="Center" AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True"  Grid.Row="6" Grid.Column="5" Grid.ColumnSpan="4" Grid.RowSpan="4">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding ServiceName}">
+                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Path=Service.service_name}">
                 </DataGridTextColumn>
-                <DataGridTextColumn  Header="Price" Width="Auto" Binding="{Binding ServiceHotelPrice}">
+                <DataGridTextColumn  Header="Price" Width="Auto" Binding="{Binding Path=service_price}">
                 </DataGridTextColumn>
             </DataGrid.Columns>
 

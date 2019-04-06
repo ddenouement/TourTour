@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using TourTour.Utilities;
 
 namespace TourTour.View
@@ -76,6 +78,11 @@ namespace TourTour.View
                     if (taviacost.Length > 0) currenttour.avia_cost = Decimal.Parse(taviacost);
                     currenttour.hotel_id = (int)thotel;
 
+                    if (tourid < 0)
+                    {
+                        db.Tours.Add(currenttour);
+                    }
+
                     db.SaveChanges();
 
                     MessageBox.Show(tname + " tour created successfully");
@@ -106,4 +113,6 @@ namespace TourTour.View
             }
         }
     }
+
+    
 }

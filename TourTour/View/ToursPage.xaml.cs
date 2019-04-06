@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 using TourTour.Utilities;
 using TourTour.ViewModel;
@@ -45,13 +47,12 @@ namespace TourTour.View
                     row.DetailsVisibility = row.DetailsVisibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
                     break;
                 }
-            
         }
 
         private void FillGrid()
         {
             tvm = new ToursViewModel();
-            DataGridTours.ItemsSource = tvm.items.ToBindingList();
+            DataGridTours.ItemsSource = tvm.Tours;
         }
 
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
@@ -106,7 +107,7 @@ namespace TourTour.View
         private int GetCurrentID(object sender)
         {
             object obj = ((FrameworkElement)sender).DataContext as object;
-            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("ID");
+            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("tour_id");
             int id = (int)(pi.GetValue(obj, null));
 
             return id;

@@ -19,44 +19,43 @@ namespace TourTour.View
         Hotel currenthotel = new Hotel();
         DBContext db = new DBContext();
         
-        ObservableCollection<object> hotelservicesview = new ObservableCollection<object>();
+        List<Hotel_service> hotelservices = new List<Hotel_service>();
 
         public AddHotelPage()
         {
             InitializeComponent();
-            if (Adapter.CurrentId != null)
-            {
-                hotelid = (int)Adapter.CurrentId;
-            }
-
             db.Hotels.Load();
             db.Countries.Load();
             db.Cities.Load();
             db.Services.Load();
 
+
+            if (Adapter.CurrentId != null)
+            {
+                hotelid = (int)Adapter.CurrentId;
+                currenthotel = db.Hotels.SingleOrDefault(x => x.hotel_id == hotelid);
+
+                TextBoxHotelName.Text = currenthotel.hotel_name;
+                TextBoxHotelStars.Text = currenthotel.stars.ToString();
+                TextBoxHotelPrice.Text = currenthotel.hotel_price.ToString();
+            }
+            
+
             FillCountries();
             FillServices();
             FillGrid();
-
-            //if (hotelid > -1)
-            //    hotelservices = db.Hotels.FirstOrDefault(x => x.hotel_id == hotelid).Hotel_service;
         }
        
         private void FillGrid()
         {
-            DbSet<Hotel_service> temp111 = db.Hotel_services;
             var query = from hotelservice in db.Hotel_services
-                        join service in db.Services on hotelservice.service_id equals service.service_id
-                        where hotelservice.hotel_id == hotelid
-                        select new
-                        {
-                            ServiceID = service.service_id,
-                            ServiceName = service.service_name,
-                            ServiceHotelPrice = hotelservice.service_price
-                        };
+                        where hotelservice.hotel_id==hotelid
+                        select hotelservice;
             
-            hotelservicesview = new ObservableCollection<object>(query);
-            DataGridHotelServices.ItemsSource = hotelservicesview.ToBindingList();
+            hotelservices = query.ToList();
+
+            DataGridHotelServices.ItemsSource = null;
+            DataGridHotelServices.ItemsSource = hotelservices;
         }
 
         private void FillCities()
@@ -70,6 +69,11 @@ namespace TourTour.View
                 ComboBoxCity.SelectedIndex = 0;
             else
                 ComboBoxCity.SelectedIndex = -1;
+
+            if (hotelid > -1)
+            {
+                ComboBoxCity.SelectedValue = currenthotel.City.city_id;
+            }
         }
 
         private void FillServices()
@@ -80,6 +84,12 @@ namespace TourTour.View
         private void FillCountries()
         {
             ComboBoxCountry.ItemsSource = db.Countries.Local.ToBindingList();
+
+            if (hotelid > -1)
+            {
+                ComboBoxCountry.SelectedValue = currenthotel.City.Country.country_id;
+                FillCities();
+            }
         }
 
         private void ButtonAddHotelService_Click(object s, RoutedEventArgs e)
@@ -96,11 +106,12 @@ namespace TourTour.View
             {
                 try
                 {
-                    db.Hotel_services.Add(new Hotel_service { hotel_id = hotelid, service_id = (int)hservice, service_price = temp });
+                    Hotel_service hs = new Hotel_service { hotel_id = hotelid, service_id = (int)hservice, service_price = temp, Service=db.Services.FirstOrDefault(x => x.service_id==(int)hservice) };
 
-                    DbSet<Hotel_service> temp111 = db.Hotel_services;
+                    hotelservices.Add(hs);
 
-                    FillGrid();
+                    DataGridHotelServices.ItemsSource = null;
+                    DataGridHotelServices.ItemsSource = hotelservices;
                 }
                 catch (Exception ex)
                 {
@@ -111,7 +122,16 @@ namespace TourTour.View
 
         private void ButtonDeleteHotelService_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (DataGridHotelServices.SelectedIndex > -1)
+            {
+                if (MessageBox.Show("Delete selected service?", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    hotelservices.RemoveAt(DataGridHotelServices.SelectedIndex);
+
+                    DataGridHotelServices.ItemsSource = null;
+                    DataGridHotelServices.ItemsSource = hotelservices;
+                }
+            }
         }
 
         private void ButtonNewCity_Click(object s, RoutedEventArgs a)
@@ -121,7 +141,7 @@ namespace TourTour.View
 
         private void ButtonNewService_Click(object s, RoutedEventArgs a)
         {
-            if (MessageBox.Show("Cancel? The current progress will not be saved", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Go to service creating page? The current progress will not be saved", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 Adapter.CurrentId = null;
                 this.NavigationService.Navigate(new HotelsPage());
@@ -157,13 +177,30 @@ namespace TourTour.View
                     currenthotel.stars = temp;
                     currenthotel.hotel_price = temp1;
                     currenthotel.city_id = (int)hcity;
+                    currenthotel.Hotel_service = hotelservices;
 
-                    if (hotelid == -1) {
-                        foreach (var item in db.Hotel_services.Where(x => x.hotel_id == hotelid))
-                        {
-                            item.hotel_id = currenthotel.hotel_id;
-                        }
+                    if (hotelid < 0)
+                    {
+                        db.Hotels.Add(currenthotel);
                     }
+                    
+                    //// adding new services
+                    //foreach (Hotel_service item in hotelservices)
+                    //{
+                    //    if (db.Hotel_services.Count(x => x.Hotel_service_id == item.Hotel_service_id) == 0)
+                    //    {
+                    //        db.Hotel_services.Add(item);
+                    //    }
+                    //}
+
+                    ////removing deleted services
+                    //foreach (Hotel_service item in db.Hotel_services)
+                    //{
+                    //    if (hotelservices.Count(x=> x.Hotel_service_id == item.Hotel_service_id) == 0)
+                    //    {
+                    //        db.Hotel_services.Remove(db.Hotel_services.FirstOrDefault(x => x.Hotel_service_id == item.Hotel_service_id));
+                    //    }
+                    //}
 
                     db.SaveChanges();
 

@@ -38,7 +38,7 @@ namespace TourTour.View
         private void FillGrid()
         {
             hvm = new HotelsViewModel();
-            DataGridHotels.ItemsSource = hvm.items.ToBindingList();
+            DataGridHotels.ItemsSource = hvm.Hotels;
         }
 
         private void ButtonEdit_Click(object sender, RoutedEventArgs e)
@@ -87,7 +87,7 @@ namespace TourTour.View
         private int GetCurrentID(object sender)
         {
             object obj = ((FrameworkElement)sender).DataContext as object;
-            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("ID");
+            System.Reflection.PropertyInfo pi = obj.GetType().GetProperty("hotel_id");
             int id = (int)(pi.GetValue(obj, null));
 
             return id;

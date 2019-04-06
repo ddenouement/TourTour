@@ -1,44 +1,43 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using TourTour.Utilities;
 
 namespace TourTour.ViewModel
 {
-    class HotelsViewModel
+    class HotelsViewModel : INotifyPropertyChanged
     {
         DBContext db = new DBContext();
 
-        public ObservableCollection<object> items;
+        private List<Hotel> _hotels;
+
+        
+
+        public List<Hotel> Hotels
+        {
+            get
+            {
+                return _hotels;
+            }
+            set
+            {
+                _hotels = value;
+            }
+        }
 
         public HotelsViewModel()
         {
             try
             {
-                db.Hotels.Load();
-                db.Cities.Load();
-                db.Countries.Load();
-                db.Services.Load();
-                db.Hotel_services.Load();
-
                 var query = from hotel in db.Hotels
-                            join city in db.Cities on hotel.city_id equals city.city_id
-                            join country in db.Countries on city.country_id equals country.country_id
-                            select new
-                            {
-                                ID = hotel.hotel_id,
-                                Name = hotel.hotel_name,
-                                Stars = hotel.stars,
-                                Price = hotel.hotel_price,
-                                Country = country.country_name,
-                                City = city.city_name,
-                                add_services = hotel.Hotel_service
-                            };
-
-                query.OrderBy(x => x.ID);
-                items = new ObservableCollection<object>(query);
+                            select hotel;
+                
+                Hotels = query.ToList();
             }
             catch (Exception ex)
             {
@@ -46,15 +45,10 @@ namespace TourTour.ViewModel
             }
         }
 
-        private string GetHotelInfo(Hotel hotel)
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            string res = "";
-            foreach (Hotel_service hs in hotel.Hotel_service)
-            {
-                res += "\n" + hs.Service.service_name + " - " + hs.service_price;
-            }
-
-            return res;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
