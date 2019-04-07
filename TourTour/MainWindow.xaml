@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TourTour"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="MainWindow" Height="500" Width="800">
+        Title="TourTour" Height="500" Width="800">
     <DockPanel>
         <Frame x:Name="mainFrm"/>
     </DockPanel>

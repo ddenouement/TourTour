@@ -34,7 +34,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-
+        <Label Content="Contact info" FontWeight="Bold" Grid.Column="3" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         
         <Label Grid.Row="1" Content="Name*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
         <Label Grid.Row="2" Content="Surname*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>

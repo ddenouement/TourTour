@@ -113,6 +113,10 @@ namespace TourTour.View
             return id;
         }
 
-        
+        private void ButtonAddClient_Click(object sender, RoutedEventArgs e)
+        {
+            Adapter.CurrentId = null;
+            this.NavigationService.Navigate(new AddClientPage());
+        }
     }
 }

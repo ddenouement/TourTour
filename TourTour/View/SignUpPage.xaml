@@ -29,6 +29,8 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <Label Content="Sign up" FontWeight="Bold" Grid.Column="3" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        
         <Label Grid.Row="1" Content="Username*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
         <Label Grid.Row="2" Content="Email*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>
         <Label Grid.Row="3" Content="Password*: " VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1"/>

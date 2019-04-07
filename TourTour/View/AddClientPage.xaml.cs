@@ -14,6 +14,8 @@ namespace TourTour.View
     public partial class AddClientPage : Page
     {
         int currentid = -1;
+        Client currentclient = new Client();
+        DBContext db = new DBContext();
 
         public AddClientPage()
         {
@@ -21,6 +23,22 @@ namespace TourTour.View
             if (Adapter.CurrentId != null)
             {
                 currentid = (int)Adapter.CurrentId;
+                currentclient = db.Clients.FirstOrDefault(x => x.client_id == currentid);
+
+                TextBoxName.Text = currentclient.client_name;
+                TextBoxSurname.Text = currentclient.client_surname;
+                TextBoxPatronymic.Text = currentclient.client_patronym;
+                TextBoxEmail.Text=currentclient.email;
+                DatePickerBirthDate.SelectedDate=currentclient.birth_date;
+                TextBoxPhone.Text= currentclient.Phone_number.ElementAt(0).phone_num;
+                 TextBoxCountry.Text= currentclient.country;
+                TextBoxRegion.Text= currentclient.region;
+                TextBoxCity.Text= currentclient.city;
+                TextBoxArea.Text= currentclient.area;
+                TextBoxStreet.Text= currentclient.street;
+                TextBoxHouse.Text= currentclient.house.ToString();
+                TextBoxBlock.Text= currentclient.block;
+                TextBoxApartment.Text= currentclient.apt.ToString();
             }
         }
 
@@ -56,34 +74,29 @@ namespace TourTour.View
             if (!Int32.TryParse(cap, out int temp1) || temp1 < 0) MessageBox.Show("Apartment value must be positive integer");
             else
             {
-                Client client = new Client
-                {
-                    client_name = cname,
-                    client_surname = csurname,
-                    client_patronym = cpatronymic,
-                    email = cemail,
-                    birth_date = (DateTime)cbday,
-                    country = ccountry,
-                    city = ccity,
-                    street = cstreet,
-                    house = temp,
-                    apt = temp1
-                };
+                currentclient.client_name = cname;
+                currentclient.client_surname = csurname;
+                currentclient.client_patronym = cpatronymic;
+                currentclient.email = cemail;
+                currentclient.birth_date = (DateTime)cbday;
+                currentclient.country = ccountry;
+                currentclient.city = ccity;
+                currentclient.street = cstreet;
+                currentclient.house = temp;
+                currentclient.apt = temp;
 
-                if (cregion.Length > 0) client.region = cregion;
-                if (carea.Length > 0) client.area = carea;
-                if (cblock.Length > 0) client.block = cblock;
-                if (cphone.Length > 0) client.Phone_number.Add(new Phone_number { phone_num = cphone });
-
-                using (DBContext db=new DBContext())
-                {
+                if (cregion.Length > 0) currentclient.region = cregion;
+                if (carea.Length > 0) currentclient.area = carea;
+                if (cblock.Length > 0) currentclient.block = cblock;
+                if (cphone.Length > 0) currentclient.Phone_number.Add(new Phone_number { phone_num = cphone });
+                
                     //todo: add function to manager to check if email exists
                     Client tempclient = db.Clients.FirstOrDefault(x => x.email == cemail && x.client_name == cname && x.client_surname == csurname && x.client_patronym == cpatronymic);
                     
 
                     if (tempclient != null)
                     {
-                        tempclient = client;
+                        tempclient = currentclient;
                         if (Adapter.CurrentCartId!=null)
                         {
                             tempclient.Paychecks.Add(Adapter.TemporaryPaycheck);
@@ -93,13 +106,12 @@ namespace TourTour.View
                     {
                         if (Adapter.CurrentCartId!=null)
                         {
-                            client.Paychecks.Add(Adapter.TemporaryPaycheck);
+                            currentclient.Paychecks.Add(Adapter.TemporaryPaycheck);
                         }
-                        db.Clients.Add(client);
+                        db.Clients.Add(currentclient);
                     }
                     
                     db.SaveChanges();
-                }
 
                 if (Adapter.CurrentCartId!=null)
                 {
