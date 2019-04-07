@@ -54,8 +54,16 @@ namespace TourTour.View
         private void ButtonOrder_Click(object sender, RoutedEventArgs e)
         {
             int id = GetCurrentID(sender);
-            Adapter.CurrentId = id;
-            this.NavigationService.Navigate(new OrderPage());
+
+            using (DBContext db = new DBContext())
+            {
+                if (!db.Tours.FirstOrDefault(x => x.tour_id == id).availability) MessageBox.Show("Sorry, the tour is currently unavailable");
+                else
+                {
+                    Adapter.CurrentCartId = id;
+                    this.NavigationService.Navigate(new OrderPage());
+                }
+            }
         }
 
         private void ButtonRemove_Click(object sender, RoutedEventArgs e)
@@ -71,7 +79,7 @@ namespace TourTour.View
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            Adapter.CurrentId = null;
+            Adapter.CurrentCartId = null;
             this.NavigationService.Navigate(new MainMenu());
         }
 

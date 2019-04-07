@@ -5,7 +5,9 @@ namespace TourTour.Utilities
     static class Adapter
     {
         static public int? CurrentId=null;
+        static public int? CurrentCartId = null;
         static public List<int> Cart=new List<int>();
+        static public Paycheck TemporaryPaycheck;
 
         static public bool Login(string login, string password)
         {

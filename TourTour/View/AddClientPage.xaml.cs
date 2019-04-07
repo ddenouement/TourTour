@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,7 +48,8 @@ namespace TourTour.View
             else
             if (cbday == null || cbday > DateTime.Now) MessageBox.Show("Please, choose a valid date of birth");
             else
-            if (cphone.Length>0 && !Regex.Match(cphone, @"^(\+[0-9]{9})$").Success) MessageBox.Show("Please, write a valid phone number");
+            if (cphone.Length>0 && !Regex.Match(cphone, @"(^\+\d{1,2})?((\(\d{3}\))|(\-?\d{3}\-)|(\d{3}))((\d{3}\-\d{4})|(\d{3}\-\d\d\  
+-\d\d)|(\d{7})|(\d{3}\-\d\-\d{3}))").Success) MessageBox.Show("Please, write a valid phone number");
             else
             if (!Int32.TryParse(chouse, out int temp) || temp < 0) MessageBox.Show("House value must be positive integer");
             else
@@ -76,12 +78,49 @@ namespace TourTour.View
                 using (DBContext db=new DBContext())
                 {
                     //todo: add function to manager to check if email exists
-                    db.Clients.Add(client);
+                    Client tempclient = db.Clients.FirstOrDefault(x => x.email == cemail && x.client_name == cname && x.client_surname == csurname && x.client_patronym == cpatronymic);
+                    
 
+                    if (tempclient != null)
+                    {
+                        tempclient = client;
+                        if (Adapter.CurrentCartId!=null)
+                        {
+                            tempclient.Paychecks.Add(Adapter.TemporaryPaycheck);
+                        }
+                    }
+                    else
+                    {
+                        if (Adapter.CurrentCartId!=null)
+                        {
+                            client.Paychecks.Add(Adapter.TemporaryPaycheck);
+                        }
+                        db.Clients.Add(client);
+                    }
+                    
                     db.SaveChanges();
                 }
 
-                if (currentid<0) this.NavigationService.Navigate(new MainMenu());
+                if (Adapter.CurrentCartId!=null)
+                {
+                    MessageBox.Show("Order created successfully");
+                    Adapter.Cart.Remove((int)Adapter.CurrentCartId);
+                    Adapter.CurrentCartId = null;
+                    Adapter.CurrentId = null;
+                    Adapter.TemporaryPaycheck = new Paycheck();
+                    this.NavigationService.Navigate(new CartPage());
+                }
+                else
+                if (currentid < 0)
+                {
+                    MessageBox.Show("Client created successfully");
+                    this.NavigationService.Navigate(new MainMenu());
+                }
+                else
+                {
+                    MessageBox.Show("Client updated successfully");
+                    this.NavigationService.Navigate(new ClientsPage());
+                }
             }
         }
 
@@ -90,6 +129,8 @@ namespace TourTour.View
             if (MessageBox.Show("Cancel? The current progress will not be saved", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 Adapter.CurrentId = null;
+                Adapter.CurrentCartId = null;
+                Adapter.TemporaryPaycheck = new Paycheck();
                 this.NavigationService.Navigate(new MainMenu());
             }
 

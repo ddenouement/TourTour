@@ -1,0 +1,79 @@
+﻿<Page x:Class="TourTour.View.AddCityPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddCityPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Content="Countries" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Grid.Column="4"  VerticalAlignment="Center" Grid.Row="1" />
+        <Label Content="New country name: " Grid.Row="2" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="0"  VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+        <Label Content="Change name to: " Grid.Row="4" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="0"  VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+
+        <TextBox Name="TextBoxCountryName" Height="24" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2"  />
+        <Button x:Name="ButtonNewCountry" Content="Create new country" Click="ButtonNewCountry_Click" Height="25" VerticalAlignment="Center" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="TextBoxChangeCountryName" Height="24" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="4"  />
+        <Button x:Name="ButtonChangeCountryName" Content="Change name" Click="ButtonChangeCountryName_Click"  Height="25" VerticalAlignment="Center" Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2"/>
+
+        <DataGrid x:Name="DataGridCountries" SelectionMode="Single" ItemsSource="{Binding Cities, Mode=OneWay}" SelectedValuePath="country_id" HorizontalAlignment="Center" AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True"  Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="4" SelectionChanged="DataGridCountries_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding country_id}"/>
+                <DataGridTextColumn  Header="Name" Width="*" Binding="{Binding country_name}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Label Content="Cities" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Grid.Column="4"  VerticalAlignment="Center" Grid.Row="7" />
+        <Label Content="New city name: " Grid.Row="8" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="0"  VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+        <Label Content="Change name to: " Grid.Row="10" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="0"  VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+
+        <TextBox Name="TextBoxCityName" Height="24" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="8"  />
+        <Button x:Name="ButtonNewCity" Content="Create new city" Click="ButtonNewCity_Click" Height="25" VerticalAlignment="Center" Grid.Column="2" Grid.Row="9" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="TextBoxChangeCityName" Height="24" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="10"  />
+        <Button x:Name="ButtonChangeCityName" Content="Change name" Click="ButtonChangeCityName_Click"  Height="25" VerticalAlignment="Center" Grid.Column="2" Grid.Row="11" Grid.ColumnSpan="2"/>
+
+
+        <DataGrid x:Name="DataGridCities" SelectionMode="Single" ItemsSource="{Binding Cities, Mode=OneWay}" SelectedValuePath="city_id" HorizontalAlignment="Center" AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True"  Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="4" SelectionChanged="DataGridCities_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding city_id}"/>
+                <DataGridTextColumn  Header="Name" Width="*" Binding="{Binding city_name}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Button Name="ButtonSave" Click="ButtonSubmit_Click" Content="Save" Height="30" VerticalAlignment="Center" Grid.Column="2" Grid.Row="13" Grid.ColumnSpan="2" />
+        <Button Name="ButtonCancel" Click="ButtonCancel_Click" Content="Cancel" Height="30" VerticalAlignment="Center" Grid.Column="5" Grid.Row="13" Grid.ColumnSpan="2" />
+
+    </Grid>
+</Page>

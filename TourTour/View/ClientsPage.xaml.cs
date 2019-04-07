@@ -1,19 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TourTour.Utilities;
 using TourTour.ViewModel;
 
@@ -63,8 +54,8 @@ namespace TourTour.View
             {
                 using (DBContext db = new DBContext())
                 {
-                    if (db.Paychecks.FirstOrDefault(x => x.voucher_id == id).payed) db.Paychecks.FirstOrDefault(x => x.voucher_id == id).payed = false;
-                    else db.Paychecks.FirstOrDefault(x => x.voucher_id == id).payed = true;
+                    db.Paychecks.FirstOrDefault(x => x.voucher_id == id).payed = true;
+                    db.Paychecks.FirstOrDefault(x => x.voucher_id == id).pay_date = DateTime.Today;
                     db.SaveChanges();
                 }
                 FillGrid();

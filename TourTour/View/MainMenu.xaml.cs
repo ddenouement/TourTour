@@ -27,12 +27,12 @@ namespace TourTour.View
         }
         private void ButtonHotels_Click(object sender, RoutedEventArgs a)
         {
-            if (Adapter.AdminMode()) this.NavigationService.Navigate(new  HotelsPage());
+            if (Adapter.AdminMode()) this.NavigationService.Navigate(new HotelsPage());
             else MessageBox.Show("You are not admin");
         }
         private void ButtonZvit_Click(object sender, RoutedEventArgs a)
         {
-            if (Adapter.AdminMode()) this.NavigationService.Navigate(new  ZvitPage());
+            if (Adapter.AdminMode()) this.NavigationService.Navigate(new ReportPage());
             else MessageBox.Show("You are not admin");
         }
         private void ButtonLogOut_Click(object sender, RoutedEventArgs a)

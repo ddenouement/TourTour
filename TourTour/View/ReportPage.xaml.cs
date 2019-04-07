@@ -16,19 +16,23 @@ using System.Windows.Shapes;
 namespace TourTour.View
 {
     /// <summary>
-    /// Логика взаимодействия для ZvitPage.xaml
+    /// Interaction logic for ReportPage.xaml
     /// </summary>
-    public partial class ZvitPage : Page
+    public partial class ReportPage : Page
     {
-        public ZvitPage()
+        public ReportPage()
         {
             InitializeComponent();
         }
-        private void btn_back_click(object sender, RoutedEventArgs e)
+
+        private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new MainMenu());
 
         }
 
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new MainMenu());
+        }
     }
 }

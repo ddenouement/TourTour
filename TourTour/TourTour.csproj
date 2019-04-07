@@ -168,11 +168,17 @@
     <Compile Include="ViewModel\ClientsViewModel.cs" />
     <Compile Include="ViewModel\HotelsViewModel.cs" />
     <Compile Include="ViewModel\ToursViewModel.cs" />
+    <Compile Include="View\AddCityPage.xaml.cs">
+      <DependentUpon>AddCityPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AddClientPage.xaml.cs">
       <DependentUpon>AddClientPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AddHotelPage.xaml.cs">
       <DependentUpon>AddHotelPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddServicePage.xaml.cs">
+      <DependentUpon>AddServicePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AddTourPage.xaml.cs">
       <DependentUpon>AddTourPage.xaml</DependentUpon>
@@ -195,14 +201,14 @@
     <Compile Include="View\OrderPage.xaml.cs">
       <DependentUpon>OrderPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ReportPage.xaml.cs">
+      <DependentUpon>ReportPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SignUpPage.xaml.cs">
       <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ToursPage.xaml.cs">
       <DependentUpon>ToursPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ZvitPage.xaml.cs">
-      <DependentUpon>ZvitPage.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -216,11 +222,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AddCityPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AddClientPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AddHotelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddServicePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -252,15 +266,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ReportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SignUpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ToursPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ZvitPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

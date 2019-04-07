@@ -1,20 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TourTour.Utilities;
 using System.Data.Entity;
+using System.Text.RegularExpressions;
 
 namespace TourTour.View
 {
@@ -23,88 +14,94 @@ namespace TourTour.View
     /// </summary>
     public partial class OrderPage : Page
     {
-        public int total_price;
         public int tourid;
-        public int price_per_person;
-        public int ppls;
-        DBContext db = new DBContext();
-        public Tour curr_tour = new Tour();
+        public decimal defaultinsurance = 60;
+        public Tour currenttour = new Tour();
 
         public OrderPage()
         {
-
             InitializeComponent();
-            db.Hotels.Load();
-            db.Countries.Load();
-            db.Cities.Load();
-            db.Services.Load();
 
-            if (Adapter.CurrentId != null)
+            using (DBContext db = new DBContext())
             {
-                tourid = (int)Adapter.CurrentId;
-                curr_tour =   db.Tours.Include("Hotel.Hotel_service.Service").Include("Hotel.City.Country").Single(x => x.tour_id == tourid);
+                db.Hotels.Load();
+                db.Countries.Load();
+                db.Cities.Load();
+                db.Services.Load();
 
-                TextBoxPplCount.Text = "1";//default
-                tour_name_label.Content = curr_tour.tour_name;
-            }
-             
-            if ( ! CurrentUser.IsAdmin())
-            {//нельзя выбрать другого клиента если ты не админ
-                ComboBoxClient.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                FillDataInCobmboboxClients();
+                tourid = (int)Adapter.CurrentCartId;
+                currenttour = db.Tours.Include("Hotel.Hotel_service.Service").Include("Hotel.City.Country").Single(x => x.tour_id == tourid);
+
+                TextBoxPplCount.Text = "1"; //default
+                LabelTourName.Content = currenttour.tour_name;
             }
         }
-        private void FillDataInCobmboboxClients()//clients
+
+        private void ButtonOrder_Click(object a, RoutedEventArgs d)
         {
-            var query = db.Clients;
-
-            List<Client> items = query.ToList();
-
-            ComboBoxClient.ItemsSource = items;
-
-            if (items.Count > 0)
-                ComboBoxClient.SelectedIndex = 0;
-            else
-                ComboBoxClient.SelectedIndex = -1;
-        }
-        private void ComboBoxClient_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-        private void ButtonSubmit_Click(object a, RoutedEventArgs d)
-        {
-            int idclient = -1;
             ReloadPrices();
-            if (CurrentUser.IsAdmin()) {   idclient = (int)ComboBoxClient.SelectedValue; MessageBox.Show(idclient+""); }
-            else { }//TODO как определить клиента по юзеру?????????????????????????????????????????????????????????????????????????
-            DateTime st =   PickStart.SelectedDate.Value  ;
-            DateTime en = PickEnd.SelectedDate.Value;
-            if (st == null || en == null) return;
-           
-        }
-            private void ButtonCancel_Click(object s, RoutedEventArgs a)
-        {
-            if (MessageBox.Show("Cancel? The current progress will not be saved", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-            {
-                Adapter.CurrentId = null;
-                this.NavigationService.Navigate(new CartPage());
-            }
+            DateTime st = DatePickerStart.SelectedDate.Value;
+            DateTime en = DatePickerEnd.SelectedDate.Value;
+            string pplamt = TextBoxPplCount.Text;
 
+            if (!Int32.TryParse(TextBoxPplCount.Text, out int count)) MessageBox.Show("Please, write a valid amount of people");
+            else
+            if (st == null || en == null) MessageBox.Show("Please, choose the dates of your tour");
+            else
+            if (st < DateTime.Today || en < DateTime.Today || st.Equals(en)) MessageBox.Show("Start and end dates must be in future");
+            else
+            {
+                Paycheck p = new Paycheck();
+                p.Voucher = new Voucher { start_date = (DateTime)st, end_date = (DateTime)en, insurance_cost = defaultinsurance };
+                p.ppl_count = count;
+                p.payed = false;
+
+                Adapter.TemporaryPaycheck = p;
+
+                this.NavigationService.Navigate(new AddClientPage());
+            }
         }
+
+        
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void DatePickerStart_SelectedDateChanged(object s, RoutedEventArgs a)
+        {
+            ReloadPrices();
+        }
+
+        private void DatePickerEnd_SelectedDateChanged(object s, RoutedEventArgs a)
+        {
+            ReloadPrices();
+        }
+
         public void ReloadPrices()
         {
-            int ppl_count = -1;
-            int.TryParse(TextBoxPplCount.Text, out ppl_count);
-            if (ppl_count == -1) { MessageBox.Show("Error in people count"); return; }
-            ppls = ppl_count;
-            price_per_person = (int)( curr_tour.Hotel.hotel_price + curr_tour.avia_cost);
-            total_price = ppls * price_per_person;
+            LabelInsurance.Content = "Waiting for all data...";
+            LabelTotal.Content = "Waiting for all data...";
 
-            price_total_label.Content = total_price;
-            price_one_person_label.Content = price_per_person;
+            if (!Int32.TryParse(TextBoxPplCount.Text, out int count))
+            {
+                MessageBox.Show("Invalid amount of people");
+                return;
+            }
+            DateTime? st = DatePickerStart.SelectedDate;
+            DateTime? en = DatePickerEnd.SelectedDate;
+            if (st == null || en == null || st < DateTime.Today || en < DateTime.Today || st.Equals(en)) return;
+            DateTime st1 = (DateTime)st;
+            DateTime en1 = (DateTime)en;
+            int days = (int)(en1.Subtract(st1).TotalDays);
+
+            decimal insurancetotal = defaultinsurance * days * count;
+            LabelInsurance.Content = insurancetotal;
+
+            decimal total=(currenttour.transfer+currenttour.avia_cost+currenttour.Hotel.hotel_price*days)*count + insurancetotal;
+            LabelTotal.Content = total;
             
         }
 
@@ -112,6 +109,15 @@ namespace TourTour.View
         {
            
             ReloadPrices();
+        }
+
+        private void ButtonCancel_Click(object s, RoutedEventArgs a)
+        {
+            if (MessageBox.Show("Cancel? The current progress will not be saved", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                Adapter.CurrentCartId = null;
+                this.NavigationService.Navigate(new CartPage());
+            }
         }
     }
 }

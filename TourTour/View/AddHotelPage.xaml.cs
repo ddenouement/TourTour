@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,8 +26,7 @@ namespace TourTour.View
             db.Countries.Load();
             db.Cities.Load();
             db.Services.Load();
-
-
+            
             if (Adapter.CurrentId != null)
             {
                 hotelid = (int)Adapter.CurrentId;
@@ -39,11 +36,17 @@ namespace TourTour.View
                 TextBoxHotelStars.Text = currenthotel.stars.ToString();
                 TextBoxHotelPrice.Text = currenthotel.hotel_price.ToString();
             }
-            
 
             FillCountries();
             FillServices();
             FillGrid();
+
+            if (hotelid > -1)
+            {
+                ComboBoxCountry.SelectedValue = currenthotel.City.country_id;
+                FillCities();
+                ComboBoxCity.SelectedValue = currenthotel.City.city_id;
+            }
         }
        
         private void FillGrid()
@@ -61,15 +64,12 @@ namespace TourTour.View
         private void FillCountries()
         {
             ComboBoxCountry.ItemsSource = db.Countries.Local.ToBindingList();
-
-            if (hotelid > -1)
-            {
-                
-            }
         }
 
         private void FillCities()
         {
+            if (ComboBoxCountry.SelectedItem != null)
+            {
                 var countryid = ComboBoxCountry.SelectedValue;
                 var query = db.Countries.FirstOrDefault(x => x.country_id == (int)countryid).City;
                 List<City> items = query.ToList();
@@ -80,6 +80,7 @@ namespace TourTour.View
                     ComboBoxCity.SelectedIndex = 0;
                 else
                     ComboBoxCity.SelectedIndex = -1;
+            }
         }
 
         private void FillServices()
@@ -132,7 +133,11 @@ namespace TourTour.View
 
         private void ButtonNewCity_Click(object s, RoutedEventArgs a)
         {
-
+            if (MessageBox.Show("Go to cities creating page? The current progress will not be saved", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                Adapter.CurrentId = null;
+                this.NavigationService.Navigate(new AddCityPage());
+            }
         }
 
         private void ButtonNewService_Click(object s, RoutedEventArgs a)
@@ -140,7 +145,7 @@ namespace TourTour.View
             if (MessageBox.Show("Go to service creating page? The current progress will not be saved", "Warning", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
                 Adapter.CurrentId = null;
-                this.NavigationService.Navigate(new HotelsPage());
+                this.NavigationService.Navigate(new AddServicePage());
             }
         }
 

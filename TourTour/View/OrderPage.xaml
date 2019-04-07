@@ -15,13 +15,6 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -35,31 +28,24 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Content="Tour: " Grid.ColumnSpan="1" Grid.Column="2" Grid.Row="0" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="38" VerticalAlignment="Center"/>
-        <Label Name="tour_name_label"  Content="name " Grid.ColumnSpan="3" Grid.Column="3" Grid.Row="0" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="38" VerticalAlignment="Center"/>
+        <Label Content="Tour: " Grid.ColumnSpan="1" Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+        <Label Name="LabelTourName"  Content="tourname "  Grid.Column="2" Grid.Row="1" VerticalContentAlignment="Center" HorizontalAlignment="Left"  VerticalAlignment="Center" Grid.ColumnSpan="2"/>
 
-        <Label Content="Ppl count: " Grid.Row="1" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="2" Height="38" VerticalAlignment="Center"/>
-        <Label Content="Start date: " Grid.Row="2" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="2" Height="38" VerticalAlignment="Center"/>
-        <Label Content="End date: " Grid.Row="3" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="2" Height="38" VerticalAlignment="Center"/>
-        <Label Content="Total Price: " Grid.Row="4" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="2" Height="38" VerticalAlignment="Center"/>
-        <Label Content="Client: " Grid.Row="5" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="2" Height="38" VerticalAlignment="Center"/>
-        <Label Content="Price for 1 person: " Grid.ColumnSpan="2" Grid.Column="6" Grid.Row="4" VerticalContentAlignment="Center" HorizontalAlignment="Right" Height="38" VerticalAlignment="Center"/>
-         
-        <TextBox Name="TextBoxPplCount" Height="20" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="1" TextChanged="TextBoxPplCount_TextChanged" />
-        <DatePicker Name="PickStart"  Height="20" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="2" />
-        <DatePicker Name="PickEnd"  Height="20" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="3"  />
-        <Label Name="price_total_label" Content="0000" Grid.Row="4" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="3" Height="38" VerticalAlignment="Center"/>
-        <ComboBox Name="ComboBoxClient" ItemsSource="{Binding Client.client_surname}" DisplayMemberPath="country_name" SelectedValuePath="country_id" Height="20" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.Column="3" Grid.Row="5" SelectionChanged="ComboBoxClient_SelectionChanged" />
-        <Label Name="price_one_person_label" Content="0000" Grid.Row="4" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="8" Height="38" VerticalAlignment="Center"/>
+        <Label Content="Amount of people: " Grid.Row="2" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1" VerticalAlignment="Center"/>
+        <Label Content="Start date: " Grid.Row="3" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1"  VerticalAlignment="Center"/>
+        <Label Content="End date: " Grid.Row="4" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1"  VerticalAlignment="Center"/>
+        <Label Content="Insurance total: " Grid.Row="6" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1"  VerticalAlignment="Center"/>
+        <Label Content="Total Price: " Grid.Row="7" VerticalContentAlignment="Center" HorizontalAlignment="Right"  Grid.Column="1"  VerticalAlignment="Center"/>
 
+        <TextBox MaxLength="3" PreviewTextInput="NumberValidationTextBox" Name="TextBoxPplCount" Height="25" VerticalAlignment="Center" Grid.ColumnSpan="1" Grid.Column="2" Grid.Row="2" TextChanged="TextBoxPplCount_TextChanged" />
+        <DatePicker Name="DatePickerStart" SelectedDateChanged="DatePickerStart_SelectedDateChanged"  Height="25" VerticalAlignment="Center" Grid.ColumnSpan="1" Grid.Column="2" Grid.Row="3" />
+        <DatePicker Name="DatePickerEnd" SelectedDateChanged="DatePickerEnd_SelectedDateChanged"  Height="25" VerticalAlignment="Center" Grid.ColumnSpan="1" Grid.Column="2" Grid.Row="4"  />
+        <Label Name="LabelInsurance" Content="0000" Grid.Row="6" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Grid.Column="2" VerticalAlignment="Center"/>
+        <Label Name="LabelTotal" Content="0000" Grid.Row="7" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Grid.Column="2" VerticalAlignment="Center"/>
 
-
-
-        <Button Name="ButtonSubmit" Click="ButtonSubmit_Click" Content="Submit" Height="30" VerticalAlignment="Center" Grid.Column="3" Grid.Row="11" Grid.ColumnSpan="2"/>
-        <Button Name="ButtonCancel" Click="ButtonCancel_Click" Content="Cancel" Height="30" VerticalAlignment="Center" Grid.Column="7" Grid.Row="11" Grid.ColumnSpan="2"/>
+        <Button Name="ButtonOrder" Click="ButtonOrder_Click" Content="Order" Height="30" VerticalAlignment="Center" Grid.Column="1" Grid.Row="9" Grid.ColumnSpan="1"/>
+        <Button Name="ButtonCancel" Click="ButtonCancel_Click" Content="Cancel" Height="30" VerticalAlignment="Center" Grid.Column="3" Grid.Row="9" Grid.ColumnSpan="1"/>
          
     </Grid>
 </Page>
