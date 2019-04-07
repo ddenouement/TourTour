@@ -41,8 +41,8 @@
                 <DataGridTextColumn Binding="{Binding avia_cost}" Header="Avia cost" x:Name="aviacost" Width="Auto"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding availability}" Header="Available"  x:Name="available" Width="Auto"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding description}" Header="Description" x:Name="description" Width="*"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Hotel.City.Country.country_name}" Header="Country" x:Name="country" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Hotel.City.city_name}" Header="City" x:Name="city" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path = Hotel.City.Country.country_name}" Header="Country" x:Name="country" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path= Hotel.City.city_name}" Header="City" x:Name="city" Width="Auto"></DataGridTextColumn>
 
                 <DataGridTemplateColumn Header="Hotel info" x:Name="ColumnHotelInfo">
                     <DataGridTemplateColumn.CellTemplate>
@@ -75,7 +75,7 @@
                         <TextBlock Text="{Binding Path=Hotel.stars, StringFormat=Stars: {0}}" Margin="5,0"/>
                         <TextBlock Text="{Binding Path=Hotel.hotel_price, StringFormat=Price: {0}}" Margin="5,0"/>
                         <TextBlock Text="Additional services:" TextAlignment="Left" FontWeight="Bold" Margin="5"></TextBlock>
-                        <DataGrid ItemsSource="{Binding Path=Hotel.Hotel_service}" AutoGenerateColumns="False">
+                        <DataGrid ItemsSource="{Binding  Hotel.Hotel_service}" AutoGenerateColumns="False">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Service.service_name}" Header="Service name" x:Name="servicename" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                                 <DataGridTextColumn Binding="{Binding service_price}" Header="Price" x:Name="serviceprice" IsReadOnly="True" Width="Auto"></DataGridTextColumn>

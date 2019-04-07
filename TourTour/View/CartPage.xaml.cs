@@ -28,7 +28,8 @@ namespace TourTour.View
             {
                 foreach (int t in Adapter.Cart)
                 {
-                    cart.Add(db.Tours.FirstOrDefault(x=>x.tour_id==t));
+                    Tour to = db.Tours.Include("Hotel.Hotel_service.Service").Include("Hotel.City.Country").Single(x => x.tour_id == t);
+                    cart.Add(to);//db.Tours.FirstOrDefault(x=>x.tour_id==t).);
                 }
             }
 
@@ -54,6 +55,7 @@ namespace TourTour.View
         {
             int id = GetCurrentID(sender);
             Adapter.CurrentId = id;
+            this.NavigationService.Navigate(new OrderPage());
         }
 
         private void ButtonRemove_Click(object sender, RoutedEventArgs e)
