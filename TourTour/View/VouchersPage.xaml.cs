@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using TourTour.Utilities;
+using TourTour.ViewModel;
 
 namespace TourTour.View
 {
@@ -11,17 +14,22 @@ namespace TourTour.View
     /// </summary>
     public partial class VouchersPage : Page
     {
+        
         public VouchersPage()
         {
             InitializeComponent();
+            FillGrid();
         }
 
         private void FillGrid()
         {
             using (DBContext db = new DBContext())
             {
+                
                 DataGridPaychecks.ItemsSource = null;
-                DataGridPaychecks.ItemsSource = db.Paychecks.Include("Client").Include("Voucher").Where(x => x.payed == false).ToList();
+                  DataGridPaychecks.ItemsSource = db.Paychecks.Include("Client").Include("Voucher").Where(x => x.payed == false).ToList();
+                
+            
             }
         }
 

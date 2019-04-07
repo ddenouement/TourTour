@@ -168,6 +168,7 @@
     <Compile Include="ViewModel\ClientsViewModel.cs" />
     <Compile Include="ViewModel\HotelsViewModel.cs" />
     <Compile Include="ViewModel\ToursViewModel.cs" />
+    <Compile Include="ViewModel\VouchersViewModel.cs" />
     <Compile Include="View\AddCityPage.xaml.cs">
       <DependentUpon>AddCityPage.xaml</DependentUpon>
     </Compile>

@@ -27,7 +27,7 @@
         <Label Content="Orders" FontWeight="Bold" Grid.Column="3" FontSize="20"  HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         <Button Content="Back" Click="ButtonBack_Click" Height="30" Width="94"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <DataGrid x:Name="DataGridPaychecks" ItemsSource="{Binding  Paychecks}"  RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
+        <DataGrid x:Name="DataGridPaychecks"     RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding check_id}" Header="Paycheck ID" x:Name="pid" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Client.client_id}" Header="Client ID" x:Name="id" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
@@ -38,7 +38,8 @@
                 <DataGridTextColumn Binding="{Binding ppl_count}" Header="# people " x:Name="ppl" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Voucher.start_date}" Header="Start" x:Name="start" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Voucher.end_date}" Header="End" x:Name="end" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
-
+                
+                
                 <DataGridTemplateColumn Header="Check paid" x:Name="ColumnPayed" Width="Auto">
                     <DataGridTemplateColumn.CellTemplate >
                         <DataTemplate>
