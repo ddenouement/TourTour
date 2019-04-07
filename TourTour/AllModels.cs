@@ -78,11 +78,13 @@ namespace TourTour
     }
     public partial class Hotel_service
     {
+       // [Key]
+        //public int Hotel_service_id { get; set; }
         [Key]
-        public int Hotel_service_id { get; set; }
-
+        [Column(Order = 0)]
         public int hotel_id { get; set; }
-
+        [Key]
+        [Column(Order = 1)]
         public int service_id { get; set; }
         public decimal service_price { get; set; }
         [ForeignKey("hotel_id")]
