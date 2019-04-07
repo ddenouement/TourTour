@@ -25,7 +25,8 @@
         <Label Content="Tours" FontWeight="Bold" Grid.Column="3" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         <Button Content="Back" Click="ButtonBack_Click" Height="30" Width="94"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button Name="ButtonNewTour" Content="New tour" Click="ButtonNewTour_Click" Height="30" Width="94"  VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"/>
-        <Button Name="ButtonCart" Grid.Column="7" Content="Cart" Height="30" Width="94" Click="ButtonCart_Click"/>
+        <Button Name="ButtonPrint" Grid.Column="4" Grid.ColumnSpan="2" Content="Filter and print available" Height="30" Width="150" Click="ButtonPrint_Click"/>
+        <Button Name="ButtonCart" Grid.Column="6" Content="Cart" Height="30" Width="94" Click="ButtonCart_Click"/>
 
 
         <DataGrid x:Name="DataGridTours" ItemsSource="{Binding Tours, Mode=OneWay}" RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Width="Auto" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >

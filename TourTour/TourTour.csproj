@@ -210,6 +210,9 @@
     <Compile Include="View\ToursPage.xaml.cs">
       <DependentUpon>ToursPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\VouchersPage.xaml.cs">
+      <DependentUpon>VouchersPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -275,6 +278,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ToursPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VouchersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

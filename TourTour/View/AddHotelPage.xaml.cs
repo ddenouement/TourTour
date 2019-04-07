@@ -68,7 +68,7 @@ namespace TourTour.View
 
         private void FillCities()
         {
-            if (ComboBoxCountry.SelectedItem != null)
+            if (ComboBoxCountry.SelectedValue != null)
             {
                 var countryid = ComboBoxCountry.SelectedValue;
                 var query = db.Countries.FirstOrDefault(x => x.country_id == (int)countryid).City;

@@ -27,8 +27,8 @@
         <Label Content="Report" FontWeight="Bold" Grid.Column="3" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         <Button Content="Back" Click="ButtonBack_Click" Height="30" Width="94"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button Content="Print" Click="ButtonPrint_Click" Height="30" Width="94"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="6"/>
-        
-        <DataGrid x:Name="DataGridTours" ItemsSource="{Binding Tours, Mode=OneWay}" RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Width="Auto" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
+
+        <DataGrid x:Name="DataGridReport" ItemsSource="{Binding Tours, Mode=OneWay}" RowDetailsVisibilityMode="Collapsed" SelectionMode="Single"  HorizontalAlignment="Center"  AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True" Width="Auto" Grid.ColumnSpan="7" Grid.RowSpan="2" Grid.Row="1" >
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Setter Property="Background" Value="GhostWhite" />
@@ -36,8 +36,9 @@
             </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding tour_id}" Header="ID" x:Name="id" IsReadOnly="True" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding tour_name}" Header="Tour name" x:Name="name" Width="Auto"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding Vouchers.length}" Header="Vouchers bought" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding tour_name}" Header="Tour name" x:Name="name" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Voucher.Count}" Header="Vouchers bought" Width="Auto"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Path=Hotel.hotel_name}" Header="Hotel" x:Name="hotel" Width="Auto"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Path=Hotel.City.Country.country_name}" Header="Country" x:Name="country" Width="Auto"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding Path=Hotel.City.city_name}" Header="City" x:Name="city" Width="Auto"></DataGridTextColumn>
             </DataGrid.Columns>

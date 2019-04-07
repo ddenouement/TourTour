@@ -9,6 +9,48 @@
       Title="AddServicePage">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Label Content="Services" FontWeight="Bold" VerticalContentAlignment="Center" HorizontalAlignment="Center"  Grid.Column="4"  VerticalAlignment="Center" Grid.Row="1" />
+        <Label Content="New service name: " Grid.Row="2" VerticalContentAlignment="Bottom" HorizontalAlignment="Right"  Grid.Column="0"  VerticalAlignment="Bottom" Grid.ColumnSpan="2"/>
+        <Label Content="Change name to: " Grid.Row="4" VerticalContentAlignment="Bottom" HorizontalAlignment="Right"  Grid.Column="0"  VerticalAlignment="BOttom" Grid.ColumnSpan="2"/>
+
+        <TextBox Name="TextBoxServiceName" Height="24" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="2"  />
+        <Button x:Name="ButtonNewService" Content="Create new service" Click="ButtonNewService_Click" Height="25" VerticalAlignment="Top" Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="TextBoxChangeServiceName" Height="24" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="4"  />
+        <Button x:Name="ButtonChangeServiceName" Content="Change name" Click="ButtonChangeServiceName_Click"  Height="25" VerticalAlignment="Top" Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2"/>
+
+        <DataGrid x:Name="DataGridServices" SelectionMode="Single" ItemsSource="{Binding Services, Mode=OneWay}" SelectedValuePath="service_id" HorizontalAlignment="Center" AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True"  Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="4" SelectionChanged="DataGridServices_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding service_id}"/>
+                <DataGridTextColumn  Header="Service name" Width="*" Binding="{Binding service_name}"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+        <Button Name="ButtonSave" Click="ButtonSave_Click" Content="Save" Height="30" VerticalAlignment="Center" Grid.Column="2" Grid.Row="7" Grid.ColumnSpan="2" />
+        <Button Name="ButtonCancel" Click="ButtonCancel_Click" Content="Cancel" Height="30" VerticalAlignment="Center" Grid.Column="5" Grid.Row="7" Grid.ColumnSpan="2" />
+
     </Grid>
 </Page>

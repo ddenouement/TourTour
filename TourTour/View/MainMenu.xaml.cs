@@ -44,5 +44,11 @@ namespace TourTour.View
         {
             this.NavigationService.Navigate(new CartPage());
         }
+
+        private void ButtonVouchers_Click(object sender, RoutedEventArgs e)
+        {
+            if (Adapter.AdminMode()) this.NavigationService.Navigate(new VouchersPage());
+            else MessageBox.Show("You are not admin");
+        }
     }
 }

@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using TourTour.Utilities;
 
 namespace TourTour.View
 {
@@ -23,11 +13,22 @@ namespace TourTour.View
         public ReportPage()
         {
             InitializeComponent();
+            FillGrid();
+        }
+
+        private void FillGrid()
+        {
+            using (DBContext db=new DBContext())
+            {
+                DataGridReport.ItemsSource = null;
+                DataGridReport.ItemsSource = db.Tours.Include("Voucher").Include("Hotel.City.Country").ToList();
+            }
         }
 
         private void ButtonPrint_Click(object sender, RoutedEventArgs e)
         {
-
+            PrintDialog printDlg = new PrintDialog();
+            printDlg.PrintVisual(DataGridReport, "ToursReport");
         }
 
         private void ButtonBack_Click(object sender, RoutedEventArgs e)

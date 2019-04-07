@@ -49,7 +49,7 @@
         <DataGrid x:Name="DataGridCountries" SelectionMode="Single" ItemsSource="{Binding Cities, Mode=OneWay}" SelectedValuePath="country_id" HorizontalAlignment="Center" AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True"  Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="4" SelectionChanged="DataGridCountries_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding country_id}"/>
-                <DataGridTextColumn  Header="Name" Width="*" Binding="{Binding country_name}"/>
+                <DataGridTextColumn  Header="Country name" Width="*" Binding="{Binding country_name}"/>
             </DataGrid.Columns>
 
         </DataGrid>
@@ -67,7 +67,7 @@
         <DataGrid x:Name="DataGridCities" SelectionMode="Single" ItemsSource="{Binding Cities, Mode=OneWay}" SelectedValuePath="city_id" HorizontalAlignment="Center" AutoGenerateColumns="False" CanUserAddRows="false" CanUserDeleteRows="False" IsReadOnly="True"  Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="3" Grid.RowSpan="4" SelectionChanged="DataGridCities_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="Auto" Binding="{Binding city_id}"/>
-                <DataGridTextColumn  Header="Name" Width="*" Binding="{Binding city_name}"/>
+                <DataGridTextColumn  Header="City name" Width="*" Binding="{Binding city_name}"/>
             </DataGrid.Columns>
 
         </DataGrid>

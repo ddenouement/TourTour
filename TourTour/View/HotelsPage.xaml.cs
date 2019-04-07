@@ -60,6 +60,11 @@ namespace TourTour.View
                 {
                     using (DBContext db = new DBContext())
                     {
+                        if (db.Tours.Count(x => x.hotel_id == id) > 0)
+                        {
+                            MessageBox.Show("Can't delete this hotel - there are tours which use it");
+                            return;
+                        }
                         db.Hotels.Remove(db.Hotels.FirstOrDefault(x => x.hotel_id == id));
                         db.SaveChanges();
                     }

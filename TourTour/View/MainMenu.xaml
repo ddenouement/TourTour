@@ -25,6 +25,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Your role:" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Right"/>
@@ -35,7 +36,8 @@
         <Button FontSize="18" Grid.Row="2" Grid.Column="2" Content="Tours" Click="ButtonTours_Click" Grid.ColumnSpan="2"/>
         <Button FontSize="18" Grid.Row="3" Grid.Column="2" Content="Hotels" Click="ButtonHotels_Click" Grid.ColumnSpan="2"/>
         <Button FontSize="18" Grid.Row="4" Grid.Column="2" Content="Clients" Click="ButtonClients_Click" Grid.ColumnSpan="2"/>
-        <Button FontSize="18" Grid.Row="5" Grid.Column="2" Content="Summary" Click="ButtonZvit_Click" Grid.ColumnSpan="2"/>
+        <Button FontSize="18" Grid.Row="5" Grid.Column="2" Content="Orders" Click="ButtonVouchers_Click" Grid.ColumnSpan="2"/>
+        <Button FontSize="18" Grid.Row="6" Grid.Column="2" Content="Summary" Click="ButtonZvit_Click" Grid.ColumnSpan="2"/>
         
     </Grid>
 </Page>

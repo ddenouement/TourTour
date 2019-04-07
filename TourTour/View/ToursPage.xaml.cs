@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace TourTour.View
             if (!Adapter.AdminMode())
             {
                 ButtonNewTour.Visibility = Visibility.Hidden;
+                ButtonPrint.Visibility = Visibility.Hidden;
 
                 ColumnDelete.Visibility = Visibility.Collapsed;
                 ColumnEdit.Visibility = Visibility.Collapsed;
@@ -72,6 +74,11 @@ namespace TourTour.View
                 {
                     using (DBContext db = new DBContext())
                     {
+                        if (db.Tours.FirstOrDefault(x => x.tour_id == id).Voucher.Count > 0)
+                        {
+                            MessageBox.Show("Can't delete this tour - it has vouchers in use");
+                            return;
+                        }
                         db.Tours.Remove(db.Tours.FirstOrDefault(x => x.tour_id == id));
                         db.SaveChanges();
                     }
@@ -121,6 +128,20 @@ namespace TourTour.View
             int id = (int)(pi.GetValue(obj, null));
 
             return id;
+        }
+
+        private void ButtonPrint_Click(object sender, RoutedEventArgs e)
+        {
+            DataGridTours.ItemsSource = null;
+            using (DBContext db = new DBContext())
+            {
+                List<Tour> t = db.Tours.Where(x => x.availability == true).Include("Hotel.City.Country").ToList();
+                DataGridTours.ItemsSource = t;
+
+                PrintDialog printDlg = new PrintDialog();
+                printDlg.PrintVisual(DataGridTours, "AvailableTours");
+            }
+            FillGrid();
         }
     }
 }
